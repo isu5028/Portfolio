@@ -1,0 +1,51 @@
+---
+---
+
+<nav class="fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-bg-primary border-b-4 border-retro-red/60">
+  <div class="max-w-5xl mx-auto flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#top"
+      class="font-pixel text-retro-red hover:text-retro-gold transition-colors duration-100"
+      style="font-size:1rem; text-shadow: 0 0 6px #b74646;">
+      &gt; ISU_PORTFOLIO
+    </a>
+
+    <!-- Nav links -->
+    <div class="hidden md:flex items-center gap-6">
+      <a href="#about"   class="font-pixel text-retro-cream/60 hover:text-retro-cream transition-colors duration-100 text-sm">[ ABOUT ]</a>
+      <a href="#works"   class="font-pixel text-retro-cream/60 hover:text-retro-cream transition-colors duration-100 text-sm">[ WORKS ]</a>
+      <a href="#contact" class="font-pixel text-retro-cream/60 hover:text-retro-cream transition-colors duration-100 text-sm">[ CONTACT ]</a>
+    </div>
+
+    <!-- Mobile -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden font-pixel text-retro-red hover:text-retro-gold transition-colors text-sm"
+      aria-label="メニューを開く"
+    >
+      [MENU]
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="fixed inset-0 z-30 hidden flex-col items-center justify-center gap-8
+  bg-bg-primary border-4 border-retro-red">
+  <div class="font-pixel text-retro-red text-lg mb-4">*** NAVIGATE ***</div>
+  <a href="#about"   class="mobile-nav-link font-pixel text-retro-cream hover:text-retro-gold transition-colors text-xl">[ ABOUT ]</a>
+  <a href="#works"   class="mobile-nav-link font-pixel text-retro-cream hover:text-retro-gold transition-colors text-xl">[ WORKS ]</a>
+  <a href="#contact" class="mobile-nav-link font-pixel text-retro-cream hover:text-retro-gold transition-colors text-xl">[ CONTACT ]</a>
+</div>
+
+<script is:inline>
+  const btn  = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => {
+    const open = menu.classList.contains('flex');
+    menu.classList.toggle('hidden', open);
+    menu.classList.toggle('flex', !open);
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', () => {
+    menu.classList.add('hidden'); menu.classList.remove('flex');
+  }));
+</script>

@@ -1,0 +1,181 @@
+---
+import type { Game } from '../data/games';
+
+export interface Props {
+  games: Game[];
+}
+
+const { games } = Astro.props;
+---
+
+<div
+  id="game-modal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+>
+  <!-- Backdrop -->
+  <div id="modal-backdrop" class="absolute inset-0 bg-black/85"></div>
+
+  <!-- Modal Content -->
+  <div class="relative z-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto
+    bg-bg-primary pixel-box-red">
+
+    <!-- Header bar -->
+    <div class="flex items-center justify-between px-5 py-3 bg-retro-red/20 border-b-3 border-retro-red">
+      <span class="font-pixel text-retro-red text-sm tracking-widest">*** GAME INFO ***</span>
+      <button
+        id="modal-close"
+        class="font-pixel text-retro-cream hover:text-retro-gold transition-colors cursor-pointer text-sm"
+        aria-label="閉じる"
+      >
+        [X] CLOSE
+      </button>
+    </div>
+
+    <div class="p-6">
+      <!-- Genre + Title -->
+      <div class="mb-5">
+        <div id="modal-genre" class="font-pixel text-retro-cream/40 text-sm mb-2 tracking-widest"></div>
+        <h2 id="modal-title" class="font-pixel text-retro-gold text-2xl leading-snug mb-3"
+          style="text-shadow: 0 0 8px #f0b832;"></h2>
+        <div class="flex flex-wrap gap-2" id="modal-tools"></div>
+      </div>
+
+      <div class="retro-divider-orange"></div>
+
+      <!-- Screenshots -->
+      <div id="modal-screenshots"
+        class="flex gap-3 overflow-x-auto pb-2 mb-5"
+        style="scrollbar-color: #b74646 #1c0f0f;">
+      </div>
+
+      <!-- Description -->
+      <p id="modal-description" class="font-retro text-retro-cream/80 text-xl leading-relaxed mb-5"></p>
+
+      <div class="retro-divider"></div>
+
+      <!-- Link -->
+      <div id="modal-link-wrapper" class="hidden mt-4">
+        <a
+          id="modal-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="pixel-btn-gold inline-block"
+        >
+          <span id="modal-link-label">▶ PLAY NOW</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ games }}>
+  const GAMES = games;
+
+  const modal        = document.getElementById('game-modal');
+  const backdrop     = document.getElementById('modal-backdrop');
+  const closeBtn     = document.getElementById('modal-close');
+  const modalTitle   = document.getElementById('modal-title');
+  const modalGenre   = document.getElementById('modal-genre');
+  const modalTools   = document.getElementById('modal-tools');
+  const modalShots   = document.getElementById('modal-screenshots');
+  const modalDesc    = document.getElementById('modal-description');
+  const modalLinkWrap= document.getElementById('modal-link-wrapper');
+  const modalLink    = document.getElementById('modal-link');
+  const modalLinkLbl = document.getElementById('modal-link-label');
+
+  const toolColorMap = {
+    cyan:   'border-2 border-retro-orange text-retro-orange',
+    purple: 'border-2 border-retro-red    text-retro-red',
+    pink:   'border-2 border-retro-red    text-retro-red',
+    green:  'border-2 border-retro-gold   text-retro-gold',
+    yellow: 'border-2 border-retro-gold   text-retro-gold',
+  };
+
+  function openModal(gameId) {
+    const game = GAMES.find(g => g.id === gameId);
+    if (!game) return;
+
+    modalTitle.textContent = game.title;
+    modalGenre.textContent = '// ' + game.genre;
+
+    // Tools
+    modalTools.innerHTML = '';
+    const tc = toolColorMap[game.accentColor] || toolColorMap.purple;
+    game.tools.forEach(t => {
+      const s = document.createElement('span');
+      s.className = `font-pixel bg-bg-primary px-3 py-1 text-sm ${tc}`;
+      s.textContent = t;
+      modalTools.appendChild(s);
+    });
+    const yr = document.createElement('span');
+    yr.className = 'font-pixel bg-bg-primary px-3 py-1 text-sm border-2 border-retro-cream/20 text-retro-cream/40';
+    yr.textContent = game.year;
+    modalTools.appendChild(yr);
+
+    // Screenshots
+    modalShots.innerHTML = '';
+    const imgs = game.screenshots.length ? game.screenshots : [{ src: game.thumbnail, alt: game.title }];
+    imgs.forEach(ss => {
+      const wrap = document.createElement('div');
+      wrap.className = 'flex-shrink-0';
+      wrap.style.width = imgs.length === 1 ? '100%' : '85%';
+      const img = document.createElement('img');
+      img.src = ss.src;
+      img.alt = ss.alt;
+      img.className = 'w-full h-52 object-cover border-3 border-retro-orange/40';
+      wrap.appendChild(img);
+      modalShots.appendChild(wrap);
+    });
+
+    modalDesc.textContent = game.description;
+
+    if (game.link) {
+      modalLinkWrap.classList.remove('hidden');
+      modalLink.href = game.link;
+      if (modalLinkLbl) modalLinkLbl.textContent = '▶ ' + (game.linkLabel || '遊んでみる');
+    } else {
+      modalLinkWrap.classList.add('hidden');
+    }
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+
+    const content = modal.querySelector('[class*="pixel-box-red"]');
+    if (content) {
+      content.style.opacity = '0';
+      content.style.transform = 'scale(0.96) translateY(12px)';
+      content.style.transition = 'opacity 0.2s, transform 0.2s';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        content.style.opacity = '1';
+        content.style.transform = 'scale(1) translateY(0)';
+      }));
+    }
+  }
+
+  function closeModal() {
+    const content = modal.querySelector('[class*="pixel-box-red"]');
+    if (content) { content.style.opacity = '0'; content.style.transform = 'scale(0.96)'; }
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }, 200);
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  document.querySelectorAll('[data-game-id]').forEach(card => {
+    const id = card.getAttribute('data-game-id');
+    card.addEventListener('click', () => openModal(id));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(id); }
+    });
+  });
+</script>

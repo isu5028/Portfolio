@@ -1,0 +1,65 @@
+---
+import type { Game } from '../data/games';
+
+export interface Props {
+  game: Game;
+  index: number;
+}
+
+const { game, index } = Astro.props;
+
+const boxMap: Record<string, string> = {
+  cyan:   'pixel-box-orange text-retro-orange',
+  purple: 'pixel-box-red    text-retro-red',
+  pink:   'pixel-box-red    text-retro-red',
+  green:  'pixel-box-gold   text-retro-gold',
+  yellow: 'pixel-box-gold   text-retro-gold',
+};
+const titleMap: Record<string, string> = {
+  cyan:   'text-retro-orange',
+  purple: 'text-retro-red',
+  pink:   'text-retro-red',
+  green:  'text-retro-gold',
+  yellow: 'text-retro-gold',
+};
+
+const boxClass   = boxMap[game.accentColor]   ?? 'pixel-box-red text-retro-red';
+const titleColor = titleMap[game.accentColor] ?? 'text-retro-red';
+---
+
+<article
+  class={`game-card bg-bg-card ${boxClass} overflow-hidden cursor-pointer
+    transition-all duration-75 group relative
+    hover:translate-x-[-2px] hover:translate-y-[-2px]`}
+  data-game-id={game.id}
+  role="button"
+  tabindex="0"
+  aria-label={`${game.title} の詳細を見る`}
+>
+  <!-- Thumbnail -->
+  <div class="relative aspect-square overflow-hidden bg-bg-secondary">
+    <img
+      src={game.thumbnail}
+      alt={`${game.title} サムネイル`}
+      class="w-full h-full object-cover transition-all duration-200 group-hover:brightness-60"
+      loading="lazy"
+    />
+    <!-- Hover overlay -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center
+      opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-black/50">
+      <span class="font-pixel text-retro-gold text-lg animate-blink">▶ START</span>
+    </div>
+    <!-- Year badge -->
+    <div class="absolute top-2 right-2">
+      <span class={`font-pixel bg-bg-primary px-2 py-0.5 border-2 border-current ${titleColor} text-sm`}>
+        {game.year}
+      </span>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="p-3 border-t-3" style="border-top: 3px solid currentColor;">
+    <h3 class={`font-pixel text-base leading-snug mb-1 ${titleColor}`}>{game.title}</h3>
+    <p class="font-retro text-retro-cream/50 text-lg">{game.genre}</p>
+  </div>
+</article>

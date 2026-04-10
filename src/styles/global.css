@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg-primary text-retro-cream font-retro overflow-x-hidden;
+    min-height: 100vh;
+    /* subtle warm noise bg */
+    background-image: radial-gradient(ellipse at 50% 0%, rgba(183,70,70,0.07) 0%, transparent 60%);
+  }
+
+  ::selection {
+    background: #b74646;
+    color: #f5e8d3;
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #120a0a; }
+  ::-webkit-scrollbar-thumb { background: #b74646; }
+}
+
+@layer components {
+  /* ── Pixel bordered boxes ── */
+  .pixel-box-red {
+    border: 3px solid #b74646;
+    box-shadow: 4px 4px 0 #7a3030;
+  }
+  .pixel-box-orange {
+    border: 3px solid #e0784a;
+    box-shadow: 4px 4px 0 #9a4520;
+  }
+  .pixel-box-gold {
+    border: 3px solid #f0b832;
+    box-shadow: 4px 4px 0 #a07010;
+  }
+  .pixel-box-cream {
+    border: 3px solid #f5e8d3;
+    box-shadow: 4px 4px 0 #7a6050;
+  }
+
+  /* ── Pixel buttons ── */
+  .pixel-btn {
+    @apply font-pixel inline-block px-5 py-3 text-base transition-all duration-75 cursor-pointer select-none;
+    border: 3px solid currentColor;
+    box-shadow: 4px 4px 0 currentColor;
+    letter-spacing: 0.05em;
+  }
+  .pixel-btn:hover  { box-shadow: 2px 2px 0 currentColor; transform: translate(2px, 2px); }
+  .pixel-btn:active { box-shadow: 0   0   0 currentColor; transform: translate(4px, 4px); }
+
+  .pixel-btn-red    { @apply pixel-btn text-retro-red;    }
+  .pixel-btn-orange { @apply pixel-btn text-retro-orange; }
+  .pixel-btn-gold   { @apply pixel-btn text-retro-gold;   }
+  .pixel-btn-cream  { @apply pixel-btn text-retro-cream;  }
+
+  /* ── Dashed dividers ── */
+  .retro-divider {
+    height: 3px;
+    @apply my-6;
+    background: repeating-linear-gradient(
+      90deg,
+      #b74646 0px, #b74646 10px,
+      transparent 10px, transparent 18px
+    );
+  }
+  .retro-divider-orange {
+    height: 3px;
+    @apply my-6;
+    background: repeating-linear-gradient(
+      90deg,
+      #e0784a 0px, #e0784a 10px,
+      transparent 10px, transparent 18px
+    );
+  }
+  .retro-divider-gold {
+    height: 3px;
+    @apply my-6;
+    background: repeating-linear-gradient(
+      90deg,
+      #f0b832 0px, #f0b832 10px,
+      transparent 10px, transparent 18px
+    );
+  }
+
+  .section-label {
+    @apply font-pixel text-sm tracking-widest uppercase;
+  }
+}

@@ -1,0 +1,241 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import GameCard from '../components/GameCard.astro';
+import GameModal from '../components/GameModal.astro';
+import { games } from '../data/games';
+
+const skills = [
+  { name: 'Unity',     level: 90 },
+  { name: 'C#',        level: 85 },
+  { name: 'Godot',     level: 60 },
+  { name: 'Aseprite',  level: 80 },
+  { name: 'Git',       level: 75 },
+  { name: 'Photoshop', level: 65 },
+];
+
+const socials = [
+  { label: 'GitHub',      href: 'https://github.com/isu5028',   id: 'link-github'  },
+  { label: 'itch.io',     href: 'https://isu502884.itch.io/',   id: 'link-itchio'  },
+  { label: 'Twitter / X', href: 'https://x.com/isu502884',      id: 'link-twitter' },
+];
+---
+
+<Layout title="isu / 八木寛季 | Game Developer Portfolio">
+  <Navbar />
+
+  <!-- ========== HERO ========== -->
+  <section id="top" class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+    <!-- Warm dark bg pattern -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.06]"
+      style="background-image: linear-gradient(#b74646 1px, transparent 1px), linear-gradient(90deg, #b74646 1px, transparent 1px); background-size: 48px 48px;">
+    </div>
+    <!-- Top-left retro frame -->
+    <div class="absolute top-24 left-8 font-pixel text-retro-red/25 leading-relaxed text-sm hidden lg:block">
+      ╔══════════════╗<br/>
+      ║  PLAYER  1   ║<br/>
+      ║  SCORE  000  ║<br/>
+      ╚══════════════╝
+    </div>
+    <!-- Top-right retro frame -->
+    <div class="absolute top-24 right-8 font-pixel text-retro-red/25 leading-relaxed text-sm hidden lg:block">
+      ╔══════════════╗<br/>
+      ║  HI-SCORE    ║<br/>
+      ║   ISU502     ║<br/>
+      ╚══════════════╝
+    </div>
+
+    <div class="relative text-center max-w-3xl mx-auto">
+      <!-- Name -->
+      <h1 class="font-pixel leading-snug mb-3 animate-glitch"
+        style="font-size:clamp(2rem,6vw,3.5rem); color:#f5e8d3; text-shadow: 3px 3px 0 #b74646, 0 0 16px #b74646aa;">
+        八木 寛季
+      </h1>
+      <p class="font-pixel text-retro-red text-lg mb-10 tracking-[0.3em]">
+        [ isu ]
+      </p>
+
+      <!-- Tagline -->
+      <p class="font-retro text-retro-cream/70 text-2xl mb-12 leading-relaxed">
+        &gt; GAME DEVELOPER &amp; DESIGNER_
+      </p>
+
+      <!-- CTA -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+        <a href="#works"   id="hero-works-btn"   class="pixel-btn-gold">▶ VIEW WORKS</a>
+        <a href="#contact" id="hero-contact-btn" class="pixel-btn-red">✉ CONTACT</a>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="mt-16 font-pixel text-retro-cream/25 text-sm animate-blink">
+        ▼ SCROLL DOWN ▼
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-10">
+        <p class="section-label text-retro-red/60 mb-2">// STAGE 01</p>
+        <h2 class="font-pixel text-retro-cream text-2xl" style="text-shadow: 2px 2px 0 #b74646;">ABOUT ME</h2>
+        <div class="retro-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <!-- Bio -->
+        <div>
+          <!-- Player card -->
+          <div class="pixel-box-red p-5 mb-6 bg-bg-secondary">
+            <div class="font-pixel text-retro-red text-sm mb-3 tracking-widest">PLAYER DATA</div>
+            <div class="font-retro text-retro-cream text-xl leading-loose space-y-1">
+              <p>&gt; NAME  : 八木 寛季（isu）</p>
+              <p>&gt; CLASS : Game Developer</p>
+              <p>&gt; TOOLS : Unity / Godot / C#</p>
+              <p>&gt; ART   : Aseprite / Pixel Art</p>
+            </div>
+          </div>
+          <div class="font-retro text-retro-cream/70 text-xl leading-relaxed space-y-3">
+            <p>
+              はじめまして！UnityやGodotを使ったゲーム開発を中心に、
+              ドット絵やキャラクターデザインも手掛けています。
+            </p>
+            <p>
+              ゲームジャムでの制作経験を通じて、短期間でクオリティの高い
+              作品を仕上げる力を磨いてきました。
+            </p>
+            <p>
+              「プレイヤーがハッとする瞬間」を大切に、
+              細部のゲームフィールにこだわって開発しています。
+            </p>
+          </div>
+          <!-- Socials -->
+          <div class="flex flex-wrap gap-3 mt-6">
+            {socials.map(s => (
+              <a href={s.href} id={s.id} target="_blank" rel="noopener noreferrer"
+                class="font-pixel text-retro-cream border-2 border-retro-red/50 px-3 py-2 text-sm
+                  hover:bg-retro-red hover:border-retro-red hover:text-bg-primary transition-colors duration-100">
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="pixel-box-orange p-5 bg-bg-secondary">
+          <div class="font-pixel text-retro-orange text-sm mb-5 tracking-widest">SKILL STATS</div>
+          <div class="space-y-4">
+            {skills.map(skill => (
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="font-pixel text-retro-cream text-sm">{skill.name}</span>
+                  <span class="font-pixel text-retro-orange text-sm">{skill.level}</span>
+                </div>
+                <!-- Pixel progress bar: filled blocks -->
+                <div class="h-5 bg-bg-primary border-2 border-retro-orange/30 overflow-hidden">
+                  <div
+                    class="h-full skill-bar"
+                    data-level={skill.level}
+                    style={`width:0%;
+                      background: repeating-linear-gradient(
+                        90deg,
+                        #e0784a 0px, #e0784a 10px,
+                        #7a3030 10px, #7a3030 12px
+                      );
+                      transition: width 1s steps(20);`}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WORKS ========== -->
+  <section id="works" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-10">
+        <p class="section-label text-retro-orange/60 mb-2">// STAGE 02</p>
+        <h2 class="font-pixel text-retro-cream text-2xl" style="text-shadow: 2px 2px 0 #e0784a;">GAME SELECT</h2>
+        <div class="retro-divider-orange"></div>
+        <p class="font-retro text-retro-cream/40 text-xl">&gt; SELECT YOUR GAME AND PRESS START</p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 md:gap-6" id="games-grid">
+        {games.map((game, i) => (
+          <GameCard game={game} index={i} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact" class="py-24 px-6">
+    <div class="max-w-2xl mx-auto">
+      <div class="mb-10">
+        <p class="section-label text-retro-gold/60 mb-2">// STAGE 03</p>
+        <h2 class="font-pixel text-retro-cream text-2xl" style="text-shadow: 2px 2px 0 #f0b832;">CONTACT</h2>
+        <div class="retro-divider-gold"></div>
+      </div>
+
+      <div class="pixel-box-gold p-6 bg-bg-secondary">
+        <div class="font-pixel text-retro-gold text-sm mb-6 animate-blink tracking-widest">
+          *** SEND MESSAGE ***
+        </div>
+
+        <div class="space-y-4">
+          <!-- Email -->
+          <div class="flex items-center gap-4 border-2 border-retro-red/20 p-4 bg-bg-primary
+            hover:bg-retro-red/10 transition-colors">
+            <span class="font-pixel text-retro-red/50 text-lg">&gt;&gt;</span>
+            <div>
+              <div class="font-pixel text-retro-cream/40 text-sm mb-1">EMAIL</div>
+              <a href="mailto:isu502884@gmail.com"
+                id="contact-email"
+                class="font-retro text-retro-orange hover:text-retro-gold transition-colors text-2xl">
+                isu502884@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <!-- Social grid -->
+          <div class="grid grid-cols-3 gap-3">
+            {socials.map(s => (
+              <a href={s.href} target="_blank" rel="noopener noreferrer"
+                class="font-pixel text-center py-3 text-sm border-2 border-retro-cream/20 text-retro-cream/50
+                  hover:border-retro-red hover:text-retro-cream hover:bg-retro-red/10
+                  transition-colors duration-100">
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 px-6 border-t-4 border-retro-red/20">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p class="font-pixel text-retro-cream/25 text-sm">&copy; 2025 ISU / 八木寛季</p>
+      <p class="font-pixel text-retro-cream/15 text-sm">BUILT WITH ASTRO + TAILWIND CSS</p>
+    </div>
+  </footer>
+
+  <GameModal games={games} />
+</Layout>
+
+<script is:inline>
+  const bars = document.querySelectorAll('.skill-bar');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.width = e.target.getAttribute('data-level') + '%';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach(b => obs.observe(b));
+</script>
