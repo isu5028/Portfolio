@@ -45,11 +45,11 @@ const { games } = Astro.props;
 
       <div class="retro-divider-orange"></div>
 
-      <!-- Screenshots -->
-      <div id="modal-screenshots"
-        class="flex gap-3 overflow-x-auto pb-2 mb-5"
-        style="scrollbar-color: #b74646 #1c0f0f;">
-      </div>
+      <!-- Screenshots carousel -->
+      <div id="modal-screenshots" class="mb-5"></div>
+
+      <!-- YouTube embeds -->
+      <div id="modal-youtube" class="mb-5 space-y-3"></div>
 
       <!-- Description -->
       <p id="modal-description" class="font-retro text-retro-cream/80 text-xl leading-relaxed mb-5"></p>
@@ -82,6 +82,7 @@ const { games } = Astro.props;
   const modalGenre   = document.getElementById('modal-genre');
   const modalTools   = document.getElementById('modal-tools');
   const modalShots   = document.getElementById('modal-screenshots');
+  const modalYt      = document.getElementById('modal-youtube');
   const modalDesc    = document.getElementById('modal-description');
   const modalLinkWrap= document.getElementById('modal-link-wrapper');
   const modalLink    = document.getElementById('modal-link');
@@ -94,6 +95,14 @@ const { games } = Astro.props;
     green:  'border-2 border-retro-gold   text-retro-gold',
     yellow: 'border-2 border-retro-gold   text-retro-gold',
   };
+
+  // YouTube URL → 動画ID を抽出し、URLを除去した本文も返す
+  function extractYouTube(text) {
+    const re = /https?:\/\/(?:youtu\.be\/|(?:www\.)?youtube\.com\/watch\?v=)([\w-]+)[^\s]*/g;
+    const ids = [];
+    const clean = text.replace(re, (_, id) => { ids.push(id); return ''; }).replace(/\n{2,}/g, '\n').trim();
+    return { ids, clean };
+  }
 
   function openModal(gameId) {
     const game = GAMES.find(g => g.id === gameId);
@@ -116,22 +125,120 @@ const { games } = Astro.props;
     yr.textContent = game.year;
     modalTools.appendChild(yr);
 
-    // Screenshots
+    // Screenshots — カルーセル
     modalShots.innerHTML = '';
-    const imgs = game.screenshots.length ? game.screenshots : [{ src: game.thumbnail, alt: game.title }];
-    imgs.forEach(ss => {
-      const wrap = document.createElement('div');
-      wrap.className = 'flex-shrink-0';
-      wrap.style.width = imgs.length === 1 ? '100%' : '85%';
+    
+    // 有効な画像パスのみを抽出
+    const rawImgs = game.screenshots.length ? game.screenshots : [{ src: game.thumbnail, alt: game.title }];
+    const imgs = rawImgs.filter(img => img.src && (img.src.startsWith('/') || img.src.includes('.')));
+    
+    if (imgs.length === 0) {
+      modalShots.classList.add('hidden');
+    } else {
+      modalShots.classList.remove('hidden');
+      let currentIdx = 0;
+
+    // カルーセル外整布 (relative for button overlay)
+    const carouselWrap = document.createElement('div');
+    carouselWrap.style.position = 'relative';
+    modalShots.appendChild(carouselWrap);
+
+    // 画像トラック
+    const track = document.createElement('div');
+    track.className = 'relative overflow-hidden border-2 border-retro-orange/40 bg-bg-secondary flex items-center justify-center';
+    track.style.height = '260px'; // 仮の高さ
+    carouselWrap.appendChild(track);
+
+    // ローディング表示
+    const loading = document.createElement('div');
+    loading.className = 'absolute inset-0 flex items-center justify-center z-20 bg-bg-secondary';
+    loading.innerHTML = '<span class="font-pixel text-retro-orange animate-pulse">NOW LOADING...</span>';
+    track.appendChild(loading);
+
+    // 画像要素を生成（最初のみ表示）
+    const imgEls = imgs.map((ss, i) => {
       const img = document.createElement('img');
       img.src = ss.src;
       img.alt = ss.alt;
-      img.className = 'w-full h-52 object-cover border-3 border-retro-orange/40';
-      wrap.appendChild(img);
-      modalShots.appendChild(wrap);
+      img.style.maxWidth  = '100%';
+      img.style.maxHeight = '100%';
+      img.style.width     = 'auto';
+      img.style.height    = 'auto';
+      img.style.display   = i === 0 ? 'block' : 'none';
+      track.appendChild(img);
+      return img;
     });
 
-    modalDesc.textContent = game.description;
+    // カウンター
+    const counter = document.createElement('div');
+    counter.className = 'font-pixel text-retro-cream/40 text-xs text-center mt-2';
+    counter.textContent = imgs.length > 1 ? `1 / ${imgs.length}` : '';
+    modalShots.appendChild(counter);
+
+    function carouselGoTo(idx) {
+      imgEls[currentIdx].style.display = 'none';
+      currentIdx = ((idx % imgs.length) + imgs.length) % imgs.length;
+      imgEls[currentIdx].style.display = 'block';
+      counter.textContent = imgs.length > 1 ? `${currentIdx + 1} / ${imgs.length}` : '';
+    }
+
+    // 複数画像のときのみ ◄ ► ボタンを表示
+    if (imgs.length > 1) {
+      const mkCarouselBtn = (symbol, side) => {
+        const btn = document.createElement('button');
+        btn.innerHTML = symbol;
+        btn.type = 'button';
+        btn.className = 'absolute top-0 bottom-0 z-10 px-6 font-pixel text-retro-cream/70 hover:text-retro-gold hover:bg-black/40 transition-colors duration-75 text-4xl select-none';
+        btn.style[side] = '0';
+        carouselWrap.appendChild(btn);
+        return btn;
+      };
+      const prevBtn = mkCarouselBtn('◄', 'left');
+      const nextBtn = mkCarouselBtn('►', 'right');
+      prevBtn.addEventListener('click', () => carouselGoTo(currentIdx - 1));
+      nextBtn.addEventListener('click', () => carouselGoTo(currentIdx + 1));
+    }
+
+    // 全画像をプリロードし、最小アスペクト比からトラックの高さを決定
+    Promise.all(imgs.map(ss => new Promise(resolve => {
+      const probe = new Image();
+      probe.onload  = () => resolve({ w: probe.naturalWidth, h: probe.naturalHeight });
+      probe.onerror = () => resolve({ w: 800, h: 450 });
+      probe.src = ss.src;
+    }))).then(dims => {
+      const containerW = track.offsetWidth || 600;
+      const targetH = Math.min(
+        480,
+        Math.min(...dims.map(d => Math.round(containerW * d.h / d.w)))
+      );
+      track.style.height = targetH + 'px';
+      imgEls.forEach(img => { img.style.maxHeight = targetH + 'px'; });
+      
+      // ローディングを消す
+      loading.style.opacity = '0';
+      loading.style.transition = 'opacity 0.3s';
+      setTimeout(() => loading.remove(), 300);
+    });
+    } // end if imgs.length > 0
+
+    const { ids: ytIds, clean: descClean } = extractYouTube(game.description);
+    modalDesc.textContent = descClean;
+
+    // YouTube 埋め込み
+    modalYt.innerHTML = '';
+    ytIds.forEach(id => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'relative w-full border-2 border-retro-orange/40';
+      wrapper.style.paddingTop = '56.25%'; // 16:9
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${id}`;
+      iframe.className = 'absolute inset-0 w-full h-full';
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'lazy');
+      wrapper.appendChild(iframe);
+      modalYt.appendChild(wrapper);
+    });
 
     if (game.link) {
       modalLinkWrap.classList.remove('hidden');

@@ -3,15 +3,17 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import GameCard from '../components/GameCard.astro';
 import GameModal from '../components/GameModal.astro';
+import ExperienceCard from '../components/ExperienceCard.astro';
+import ExperienceModal from '../components/ExperienceModal.astro';
 import { games } from '../data/games';
+import { experiences } from '../data/experiences';
 
 const skills = [
-  { name: 'Unity',     level: 90 },
-  { name: 'C#',        level: 85 },
-  { name: 'Godot',     level: 60 },
-  { name: 'Aseprite',  level: 80 },
-  { name: 'Git',       level: 75 },
-  { name: 'Photoshop', level: 65 },
+  { name: 'Unity',      detail: 'since 2019  /  20+ titles' },
+  { name: 'C#',         detail: 'since 2019' },
+  { name: 'Aseprite',   detail: 'since 2022' },
+  { name: 'Godot',      detail: '1 title released' },
+  { name: 'RE ENGINE',  detail: 'CAPCOM GAMES COMPETITION entry (2025)' },
 ];
 
 const socials = [
@@ -124,27 +126,11 @@ const socials = [
         <!-- Skills -->
         <div class="pixel-box-orange p-5 bg-bg-secondary">
           <div class="font-pixel text-retro-orange text-sm mb-5 tracking-widest">SKILL STATS</div>
-          <div class="space-y-4">
+          <div class="space-y-3">
             {skills.map(skill => (
-              <div>
-                <div class="flex justify-between items-center mb-1.5">
-                  <span class="font-pixel text-retro-cream text-sm">{skill.name}</span>
-                  <span class="font-pixel text-retro-orange text-sm">{skill.level}</span>
-                </div>
-                <!-- Pixel progress bar: filled blocks -->
-                <div class="h-5 bg-bg-primary border-2 border-retro-orange/30 overflow-hidden">
-                  <div
-                    class="h-full skill-bar"
-                    data-level={skill.level}
-                    style={`width:0%;
-                      background: repeating-linear-gradient(
-                        90deg,
-                        #e0784a 0px, #e0784a 10px,
-                        #7a3030 10px, #7a3030 12px
-                      );
-                      transition: width 1s steps(20);`}
-                  ></div>
-                </div>
+              <div class="border-l-4 border-retro-orange/50 pl-4 py-1 hover:border-retro-orange transition-colors duration-100">
+                <div class="font-pixel text-retro-cream text-sm mb-0.5">{skill.name}</div>
+                <div class="font-retro text-retro-orange/80 text-lg">{skill.detail}</div>
               </div>
             ))}
           </div>
@@ -153,21 +139,65 @@ const socials = [
     </div>
   </section>
 
+  <!-- ========== EXPERIENCE ========== -->
+  <section id="experience" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-10">
+        <p class="section-label text-retro-red/60 mb-2">// STAGE 02</p>
+        <h2 class="font-pixel text-retro-cream text-2xl" style="text-shadow: 2px 2px 0 #b74646;">EXPERIENCE</h2>
+        <div class="retro-divider"></div>
+        <p class="font-retro text-retro-cream/40 text-xl">&gt; SELECT AND PRESS START</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6" id="exp-grid">
+        {experiences.map((exp, i) => (
+          <ExperienceCard exp={exp} index={i} />
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ========== WORKS ========== -->
   <section id="works" class="py-24 px-6">
     <div class="max-w-5xl mx-auto">
       <div class="mb-10">
-        <p class="section-label text-retro-orange/60 mb-2">// STAGE 02</p>
+        <p class="section-label text-retro-orange/60 mb-2">// STAGE 03</p>
         <h2 class="font-pixel text-retro-cream text-2xl" style="text-shadow: 2px 2px 0 #e0784a;">GAME SELECT</h2>
         <div class="retro-divider-orange"></div>
         <p class="font-retro text-retro-cream/40 text-xl">&gt; SELECT YOUR GAME AND PRESS START</p>
       </div>
 
+      <!-- 最初の6件：常時表示 -->
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 md:gap-6" id="games-grid">
-        {games.map((game, i) => (
+        {games.slice(0, 6).map((game, i) => (
           <GameCard game={game} index={i} />
         ))}
       </div>
+
+      <!-- 7件目以降：折り畳み -->
+      {games.length > 6 && (
+        <>
+          <div
+            id="games-extra"
+            class="grid grid-cols-2 sm:grid-cols-3 gap-5 md:gap-6 mt-5 md:mt-6 overflow-hidden"
+            style="max-height: 0; opacity: 0; transition: max-height 0.5s ease, opacity 0.4s ease;"
+          >
+            {games.slice(6).map((game, i) => (
+              <GameCard game={game} index={i + 6} />
+            ))}
+          </div>
+
+          <div class="mt-8 text-center">
+            <button
+              id="games-toggle-btn"
+              class="pixel-btn-orange font-pixel"
+              aria-expanded="false"
+            >
+              ▼ MORE GAMES ({games.length - 6})
+            </button>
+          </div>
+        </>
+      )}
     </div>
   </section>
 
@@ -175,7 +205,7 @@ const socials = [
   <section id="contact" class="py-24 px-6">
     <div class="max-w-2xl mx-auto">
       <div class="mb-10">
-        <p class="section-label text-retro-gold/60 mb-2">// STAGE 03</p>
+        <p class="section-label text-retro-gold/60 mb-2">// STAGE 04</p>
         <h2 class="font-pixel text-retro-cream text-2xl" style="text-shadow: 2px 2px 0 #f0b832;">CONTACT</h2>
         <div class="retro-divider-gold"></div>
       </div>
@@ -224,10 +254,27 @@ const socials = [
     </div>
   </footer>
 
+  <!-- フローティング HIDE GAMES ボタン（展開中かつセクションが見えている間だけ表示） -->
+  <div
+    id="games-float-wrap"
+    class="fixed bottom-6 left-1/2 z-40 pointer-events-none"
+    style="transform: translateX(-50%); opacity:0; transition: opacity 0.3s;"
+  >
+    <button
+      id="games-float-btn"
+      class="pointer-events-auto font-pixel text-sm px-6 py-3 bg-bg-primary text-retro-red border-2 border-retro-red hover:bg-retro-red hover:text-bg-primary transition-colors duration-100 shadow-xl"
+      style="box-shadow: 4px 4px 0 #7a3030;"
+    >
+      ▲ HIDE GAMES
+    </button>
+  </div>
+
   <GameModal games={games} />
+  <ExperienceModal experiences={experiences} />
 </Layout>
 
 <script is:inline>
+  // Skill bars (unused but kept for safety)
   const bars = document.querySelectorAll('.skill-bar');
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -238,4 +285,55 @@ const socials = [
     });
   }, { threshold: 0.3 });
   bars.forEach(b => obs.observe(b));
+
+  // Games fold/unfold toggle + floating HIDE button
+  const gamesExtra    = document.getElementById('games-extra');
+  const gamesToggle   = document.getElementById('games-toggle-btn');
+  const gamesSection  = document.getElementById('works');
+  const floatWrap     = document.getElementById('games-float-wrap');
+  const floatBtn      = document.getElementById('games-float-btn');
+
+  if (gamesExtra && gamesToggle) {
+    let open = false;
+
+    // 初期状態で実際の高さを計測するために一時展開
+    gamesExtra.style.maxHeight = 'none';
+    const fullHeight = gamesExtra.scrollHeight + 'px';
+    gamesExtra.style.maxHeight = '0';
+
+    // GAME SELECT セクションの可視状態を監視
+    let sectionVisible = false;
+    const sectionObs = new IntersectionObserver(entries => {
+      sectionVisible = entries[0].isIntersecting;
+      updateFloat();
+    }, { threshold: 0.05 });
+    if (gamesSection) sectionObs.observe(gamesSection);
+
+    function updateFloat() {
+      const show = open && sectionVisible;
+      if (floatWrap) {
+        floatWrap.style.opacity         = show ? '1' : '0';
+        floatWrap.style.pointerEvents   = show ? 'auto' : 'none';
+      }
+    }
+
+    function setOpen(nextOpen) {
+      open = nextOpen;
+      if (open) {
+        gamesExtra.style.maxHeight = fullHeight;
+        gamesExtra.style.opacity   = '1';
+        gamesToggle.textContent    = '▲ HIDE GAMES';
+        gamesToggle.setAttribute('aria-expanded', 'true');
+      } else {
+        gamesExtra.style.maxHeight = '0';
+        gamesExtra.style.opacity   = '0';
+        gamesToggle.textContent    = '▼ MORE GAMES';
+        gamesToggle.setAttribute('aria-expanded', 'false');
+      }
+      updateFloat();
+    }
+
+    gamesToggle.addEventListener('click', () => setOpen(!open));
+    if (floatBtn) floatBtn.addEventListener('click', () => setOpen(false));
+  }
 </script>

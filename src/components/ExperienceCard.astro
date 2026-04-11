@@ -1,0 +1,78 @@
+---
+import type { Experience } from '../data/experiences';
+
+export interface Props {
+  exp: Experience;
+  index: number;
+}
+
+const { exp, index } = Astro.props;
+
+const boxMap = {
+  red:    'pixel-box-red    text-retro-red',
+  orange: 'pixel-box-orange text-retro-orange',
+  gold:   'pixel-box-gold   text-retro-gold',
+};
+const titleMap = {
+  red:    'text-retro-red',
+  orange: 'text-retro-orange',
+  gold:   'text-retro-gold',
+};
+
+const boxClass   = boxMap[exp.accentColor]   ?? boxMap.red;
+const titleColor = titleMap[exp.accentColor] ?? titleMap.red;
+---
+
+<article
+  class={`exp-card bg-bg-card ${boxClass} cursor-pointer
+    transition-all duration-75 group relative flex flex-col
+    hover:translate-x-[-2px] hover:translate-y-[-2px]`}
+  data-exp-id={exp.id}
+  role="button"
+  tabindex="0"
+  aria-label={`${exp.title} の詳細を見る`}
+>
+  <!-- Thumbnail / アイコン -->
+  <div class="relative aspect-video overflow-hidden bg-bg-secondary flex items-center justify-center">
+    {exp.thumbnail && (exp.thumbnail.startsWith('/') || exp.thumbnail.includes('.')) ? (
+      <img
+        src={exp.thumbnail}
+        alt={`${exp.title} サムネイル`}
+        class="w-full h-full object-cover transition-all duration-200 group-hover:brightness-60"
+        loading="lazy"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+    ) : null}
+    <div class={`absolute inset-0 flex items-center justify-center p-4 text-center ${!exp.thumbnail || exp.thumbnail.startsWith('/') || exp.thumbnail.includes('.') ? 'hidden' : 'flex'}`}>
+      <span class={`font-pixel text-3xl break-words pointer-events-none drop-shadow-md ${titleColor}`}>
+        {exp.thumbnail || 'NO IMAGE'}
+      </span>
+    </div>
+
+
+    <!-- Hover overlay -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center
+      opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-black/50">
+      <span class={`font-pixel text-sm animate-blink ${titleColor}`}>▶ DETAILS</span>
+    </div>
+    <!-- Category badge -->
+    <div class="absolute top-2 left-2">
+      <span class={`font-pixel bg-bg-primary px-2 py-0.5 border-2 border-current text-xs ${titleColor}`}>
+        {exp.category}
+      </span>
+    </div>
+    <!-- Year badge -->
+    <div class="absolute top-2 right-2">
+      <span class={`font-pixel bg-bg-primary px-2 py-0.5 border-2 border-current text-xs ${titleColor}`}>
+        {exp.period}
+      </span>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="p-4 flex-1 flex flex-col gap-1" style="border-top: 3px solid currentColor;">
+    <p class="font-pixel text-retro-cream/40 text-xs tracking-widest">{exp.organization}</p>
+    <h3 class={`font-pixel text-sm leading-snug ${titleColor}`}>{exp.title}</h3>
+    <p class="font-retro text-retro-cream/60 text-base mt-1 leading-snug">{exp.description}</p>
+  </div>
+</article>

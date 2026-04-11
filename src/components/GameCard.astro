@@ -37,13 +37,23 @@ const titleColor = titleMap[game.accentColor] ?? 'text-retro-red';
   aria-label={`${game.title} の詳細を見る`}
 >
   <!-- Thumbnail -->
-  <div class="relative aspect-square overflow-hidden bg-bg-secondary">
-    <img
-      src={game.thumbnail}
-      alt={`${game.title} サムネイル`}
-      class="w-full h-full object-cover transition-all duration-200 group-hover:brightness-60"
-      loading="lazy"
-    />
+  <div class="relative aspect-square overflow-hidden bg-bg-secondary flex items-center justify-center">
+    {game.thumbnail && (game.thumbnail.startsWith('/') || game.thumbnail.includes('.')) ? (
+      <img
+        src={game.thumbnail}
+        alt={`${game.title} サムネイル`}
+        class="w-full h-full object-cover transition-all duration-200 group-hover:brightness-60"
+        loading="lazy"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+    ) : null}
+    <div class={`absolute inset-0 flex items-center justify-center p-4 text-center ${!game.thumbnail || game.thumbnail.startsWith('/') || game.thumbnail.includes('.') ? 'hidden' : 'flex'}`}>
+      <span class={`font-pixel text-4xl break-words pointer-events-none drop-shadow-md ${titleColor}`}>
+        {game.thumbnail || 'NO IMAGE'}
+      </span>
+    </div>
+
+
     <!-- Hover overlay -->
     <div class="absolute inset-0 flex flex-col items-center justify-center
       opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-black/50">

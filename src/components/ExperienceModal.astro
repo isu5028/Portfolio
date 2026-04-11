@@ -1,0 +1,268 @@
+---
+import type { Experience } from '../data/experiences';
+
+export interface Props {
+  experiences: Experience[];
+}
+
+const { experiences } = Astro.props;
+---
+
+<div
+  id="exp-modal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="exp-modal-title"
+>
+  <!-- Backdrop -->
+  <div id="exp-modal-backdrop" class="absolute inset-0 bg-black/85"></div>
+
+  <!-- Modal Content -->
+  <div class="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto
+    bg-bg-primary pixel-box-gold">
+
+    <!-- Header bar -->
+    <div class="flex items-center justify-between px-5 py-3
+      border-b-4 border-retro-gold bg-retro-gold/10">
+      <span class="font-pixel text-retro-gold text-sm tracking-widest">*** EXPERIENCE ***</span>
+      <button
+        id="exp-modal-close"
+        class="font-pixel text-retro-cream hover:text-retro-gold transition-colors cursor-pointer text-sm"
+        aria-label="閉じる"
+      >
+        [X] CLOSE
+      </button>
+    </div>
+
+    <div class="p-6">
+      <!-- Category + Period -->
+      <div class="flex items-center gap-3 mb-3">
+        <span id="exp-modal-category"
+          class="font-pixel text-xs bg-bg-primary border-2 border-retro-gold text-retro-gold px-2 py-0.5"></span>
+        <span id="exp-modal-period"
+          class="font-pixel text-xs bg-bg-primary border-2 border-retro-cream/20 text-retro-cream/40 px-2 py-0.5"></span>
+      </div>
+
+      <!-- Organization -->
+      <p id="exp-modal-org" class="font-pixel text-retro-cream/40 text-xs tracking-widest mb-2"></p>
+
+      <!-- Title -->
+      <h2 id="exp-modal-title"
+        class="font-pixel text-retro-gold text-xl leading-snug mb-4"
+        style="text-shadow: 0 0 8px #f0b832;"></h2>
+
+      <!-- Divider -->
+      <div class="retro-divider-gold"></div>
+
+      <!-- Screenshots -->
+      <div id="exp-modal-screenshots"
+        class="flex gap-3 overflow-x-auto pb-2 mb-5"
+        style="scrollbar-color: #f0b832 #1c0f0f;">
+      </div>
+
+      <!-- YouTube embeds -->
+      <div id="exp-modal-youtube" class="mb-5 space-y-3"></div>
+
+      <!-- Details -->
+      <p id="exp-modal-details"
+        class="font-retro text-retro-cream/80 text-xl leading-relaxed mb-5"></p>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-2 mb-5" id="exp-modal-tags"></div>
+
+      <!-- Divider -->
+      <div class="retro-divider"></div>
+
+      <!-- Link -->
+      <div id="exp-modal-link-wrapper" class="hidden mt-4">
+        <a
+          id="exp-modal-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="pixel-btn-gold inline-block"
+        >
+          <span id="exp-modal-link-label">▶ 詳細を見る</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ experiences }}>
+  const EXPS = experiences;
+
+  const modal      = document.getElementById('exp-modal');
+  const backdrop   = document.getElementById('exp-modal-backdrop');
+  const closeBtn   = document.getElementById('exp-modal-close');
+  const elCategory   = document.getElementById('exp-modal-category');
+  const elPeriod     = document.getElementById('exp-modal-period');
+  const elOrg        = document.getElementById('exp-modal-org');
+  const elTitle      = document.getElementById('exp-modal-title');
+  const elDetails    = document.getElementById('exp-modal-details');
+  const elShots      = document.getElementById('exp-modal-screenshots');
+  const elYt         = document.getElementById('exp-modal-youtube');
+  const elTags       = document.getElementById('exp-modal-tags');
+  const elLinkWrap   = document.getElementById('exp-modal-link-wrapper');
+  const elLink       = document.getElementById('exp-modal-link');
+  const elLinkLbl    = document.getElementById('exp-modal-link-label');
+
+  const tagColorMap = {
+    red:    'border-2 border-retro-red    text-retro-red',
+    orange: 'border-2 border-retro-orange text-retro-orange',
+    gold:   'border-2 border-retro-gold   text-retro-gold',
+  };
+
+  function extractYouTube(text) {
+    const re = /https?:\/\/(?:youtu\.be\/|(?:www\.)?youtube\.com\/watch\?v=)([\w-]+)[^\s]*/g;
+    const ids = [];
+    const clean = text.replace(re, (_, id) => { ids.push(id); return ''; }).replace(/\n{2,}/g, '\n').trim();
+    return { ids, clean };
+  }
+
+  function openExpModal(expId) {
+    const exp = EXPS.find(e => e.id === expId);
+    if (!exp) return;
+
+    elCategory.textContent = exp.category;
+    elPeriod.textContent   = exp.period;
+    elOrg.textContent      = exp.organization;
+    elTitle.textContent    = exp.title;
+
+    const { ids: ytIds, clean: detailsClean } = extractYouTube(exp.details);
+    elDetails.textContent = detailsClean;
+
+    // YouTube 埋め込み
+    if (elYt) {
+      elYt.innerHTML = '';
+      ytIds.forEach(id => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'relative w-full border-2 border-retro-gold/40';
+        wrapper.style.paddingTop = '56.25%';
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${id}`;
+        iframe.className = 'absolute inset-0 w-full h-full';
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('loading', 'lazy');
+        wrapper.appendChild(iframe);
+        elYt.appendChild(wrapper);
+      });
+    }
+
+    // Screenshots — プリロードして最小サイズに合わせる
+    if (elShots) {
+      elShots.innerHTML = '';
+      const isImg = exp.thumbnail && (exp.thumbnail.startsWith('/') || exp.thumbnail.includes('.'));
+      const ssImgs = isImg ? [{ src: exp.thumbnail, alt: exp.title }] : [];
+      
+      if (ssImgs.length) {
+        elShots.classList.remove('hidden');
+        const imgEls = ssImgs.map(ss => {
+          const wrap = document.createElement('div');
+          wrap.className = 'relative flex-shrink-0 overflow-hidden border-2 border-retro-gold/40 bg-bg-secondary flex items-center justify-center';
+          wrap.style.height = '220px';
+          wrap.style.width  = 'auto';
+          
+          // ローディング表示
+          const loading = document.createElement('div');
+          loading.className = 'absolute inset-0 flex items-center justify-center z-20 bg-bg-secondary';
+          loading.innerHTML = '<span class="font-pixel text-retro-gold animate-pulse">NOW LOADING...</span>';
+          wrap.appendChild(loading);
+
+          const img = document.createElement('img');
+          img.src = ss.src;
+          img.alt = ss.alt;
+          img.className = 'h-full w-auto block';
+          wrap.appendChild(img);
+          elShots.appendChild(wrap);
+          return { wrap, loading };
+        });
+        Promise.all(ssImgs.map(ss => new Promise(resolve => {
+          const probe = new Image();
+          probe.onload  = () => resolve({ w: probe.naturalWidth, h: probe.naturalHeight });
+          probe.onerror = () => resolve({ w: 800, h: 450 });
+          probe.src = ss.src;
+        }))).then(dims => {
+          const containerW = elShots.offsetWidth || 560;
+          const targetH = Math.min(
+            480,
+            Math.min(...dims.map(d => Math.round(containerW * d.h / d.w)))
+          );
+          imgEls.forEach(({ wrap, loading }, i) => {
+            const d = dims[i];
+            const exactW = Math.round(targetH * d.w / d.h);
+            wrap.style.height = targetH + 'px';
+            wrap.style.width  = Math.min(exactW, containerW) + 'px';
+            
+            // ローディングを消す
+            if (loading) {
+              loading.style.opacity = '0';
+              loading.style.transition = 'opacity 0.3s';
+              setTimeout(() => loading.remove(), 300);
+            }
+          });
+        });
+      } else {
+        elShots.classList.add('hidden');
+      }
+    }
+
+    // Tags
+    elTags.innerHTML = '';
+    const tc = tagColorMap[exp.accentColor] || tagColorMap.gold;
+    exp.tags.forEach(tag => {
+      const s = document.createElement('span');
+      s.className = `font-pixel bg-bg-primary px-3 py-1 text-xs ${tc}`;
+      s.textContent = tag;
+      elTags.appendChild(s);
+    });
+
+    // Link
+    if (exp.link) {
+      elLinkWrap.classList.remove('hidden');
+      elLink.href = exp.link;
+      if (elLinkLbl) elLinkLbl.textContent = '▶ ' + (exp.linkLabel || '詳細を見る');
+    } else {
+      elLinkWrap.classList.add('hidden');
+    }
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+
+    const content = modal.querySelector('[class*="pixel-box-gold"]');
+    if (content) {
+      content.style.opacity = '0';
+      content.style.transform = 'scale(0.96) translateY(12px)';
+      content.style.transition = 'opacity 0.2s, transform 0.2s';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        content.style.opacity = '1';
+        content.style.transform = 'scale(1) translateY(0)';
+      }));
+    }
+  }
+
+  function closeExpModal() {
+    const content = modal.querySelector('[class*="pixel-box-gold"]');
+    if (content) { content.style.opacity = '0'; content.style.transform = 'scale(0.96)'; }
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }, 200);
+  }
+
+  closeBtn.addEventListener('click', closeExpModal);
+  backdrop.addEventListener('click', closeExpModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeExpModal(); });
+
+  document.querySelectorAll('[data-exp-id]').forEach(card => {
+    const id = card.getAttribute('data-exp-id');
+    card.addEventListener('click', () => openExpModal(id));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openExpModal(id); }
+    });
+  });
+</script>
