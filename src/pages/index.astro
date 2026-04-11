@@ -168,23 +168,23 @@ const socials = [
         <p class="font-retro text-retro-cream/40 text-xl">&gt; SELECT YOUR GAME AND PRESS START</p>
       </div>
 
-      <!-- 最初の6件：常時表示 -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 md:gap-6" id="games-grid">
-        {games.slice(0, 6).map((game, i) => (
+      <!-- 最初の8件：常時表示 -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-5 md:gap-6" id="games-grid">
+        {games.slice(0, 8).map((game, i) => (
           <GameCard game={game} index={i} />
         ))}
       </div>
 
-      <!-- 7件目以降：折り畳み -->
-      {games.length > 6 && (
+      <!-- 9件目以降：折り畳み -->
+      {games.length > 8 && (
         <>
           <div
             id="games-extra"
-            class="grid grid-cols-2 sm:grid-cols-3 gap-5 md:gap-6 mt-5 md:mt-6 overflow-hidden"
+            class="grid grid-cols-2 sm:grid-cols-4 gap-5 md:gap-6 mt-5 md:mt-6 overflow-hidden"
             style="max-height: 0; opacity: 0; transition: max-height 0.5s ease, opacity 0.4s ease;"
           >
-            {games.slice(6).map((game, i) => (
-              <GameCard game={game} index={i + 6} />
+            {games.slice(8).map((game, i) => (
+              <GameCard game={game} index={i + 8} />
             ))}
           </div>
 
@@ -194,7 +194,7 @@ const socials = [
               class="pixel-btn-orange font-pixel"
               aria-expanded="false"
             >
-              ▼ MORE GAMES ({games.length - 6})
+              ▼ MORE GAMES ({games.length - 8})
             </button>
           </div>
         </>

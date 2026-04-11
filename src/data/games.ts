@@ -173,7 +173,7 @@ export const games: Game[] = [
       { src: '/games/ss_torishirabe1.png', alt: 'ゲームプレイ画面 1' },
       { src: '/games/ss_torishitabe2.png', alt: 'ゲームプレイ画面 2' },
     ],
-    description: 'unity1week「ひく」参加作品。会話の中で登場したキーワードを組み合わせて話を進める非線形進行アドベンチャーゲーム。7000閲覧された。一般的なノベル・アドベンチャーゲームで使われる会話送り、バックログ、既読文章のスキップ機能などを自作した。',
+    description: 'unity1week「ひく」参加作品。会話の中で登場したキーワードを組み合わせて話を進める非線形進行アドベンチャーゲーム。7000閲覧された。\n一般的なノベル・アドベンチャーゲームで使われる会話送り、バックログ、既読文章のスキップ機能などを自作した。',
     genre: 'アドベンチャー',
     tools: ['Unity', 'C#', 'Aseprite', 'ClipStudio'],
     link: 'https://unityroom.com/games/torishirabe',
