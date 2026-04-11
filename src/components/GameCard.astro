@@ -10,21 +10,23 @@ const { game, index } = Astro.props;
 
 const boxMap: Record<string, string> = {
   cyan:   'pixel-box-orange text-retro-orange',
-  purple: 'pixel-box-red    text-retro-red',
-  pink:   'pixel-box-red    text-retro-red',
+  purple: 'pixel-box-orange text-retro-orange',
+  pink:   'pixel-box-orange text-retro-orange',
   green:  'pixel-box-gold   text-retro-gold',
   yellow: 'pixel-box-gold   text-retro-gold',
+  red:    'pixel-box-red    text-retro-red',
 };
 const titleMap: Record<string, string> = {
   cyan:   'text-retro-orange',
-  purple: 'text-retro-red',
-  pink:   'text-retro-red',
+  purple: 'text-retro-orange',
+  pink:   'text-retro-orange',
   green:  'text-retro-gold',
   yellow: 'text-retro-gold',
+  red:    'text-retro-red',
 };
 
-const boxClass   = boxMap[game.accentColor]   ?? 'pixel-box-red text-retro-red';
-const titleColor = titleMap[game.accentColor] ?? 'text-retro-red';
+const boxClass   = boxMap[game.accentColor]   ?? 'pixel-box-orange text-retro-orange';
+const titleColor = titleMap[game.accentColor] ?? 'text-retro-orange';
 ---
 
 <article

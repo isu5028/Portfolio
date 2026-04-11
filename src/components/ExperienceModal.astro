@@ -10,22 +10,18 @@ const { experiences } = Astro.props;
 
 <div
   id="exp-modal"
-  class="fixed inset-0 z-50 hidden items-center justify-center p-4"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="exp-modal-title"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-200"
 >
   <!-- Backdrop -->
-  <div id="exp-modal-backdrop" class="absolute inset-0 bg-black/85"></div>
+  <div id="exp-modal-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"></div>
 
   <!-- Modal Content -->
-  <div class="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto
+  <div class="relative z-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto
     bg-bg-primary pixel-box-gold">
 
     <!-- Header bar -->
-    <div class="flex items-center justify-between px-5 py-3
-      border-b-4 border-retro-gold bg-retro-gold/10">
-      <span class="font-pixel text-retro-gold text-sm tracking-widest">*** EXPERIENCE ***</span>
+    <div class="flex items-center justify-between px-5 py-3 bg-retro-gold/10 border-b-4 border-retro-gold">
+      <span class="font-pixel text-retro-gold text-sm tracking-widest">*** EXPERIENCE INFO ***</span>
       <button
         id="exp-modal-close"
         class="font-pixel text-retro-cream hover:text-retro-gold transition-colors cursor-pointer text-sm"
@@ -36,26 +32,20 @@ const { experiences } = Astro.props;
     </div>
 
     <div class="p-6">
-      <!-- Category + Period -->
-      <div class="flex items-center gap-3 mb-3">
-        <span id="exp-modal-category"
-          class="font-pixel text-xs bg-bg-primary border-2 border-retro-gold text-retro-gold px-2 py-0.5"></span>
-        <span id="exp-modal-period"
-          class="font-pixel text-xs bg-bg-primary border-2 border-retro-cream/20 text-retro-cream/40 px-2 py-0.5"></span>
+      <!-- Role + Title -->
+      <div class="mb-5">
+        <div class="flex items-center justify-between mb-2">
+          <span id="exp-modal-category" class="font-pixel text-retro-cream/40 text-xs tracking-widest uppercase"></span>
+          <span id="exp-modal-period" class="font-pixel text-retro-gold text-xs"></span>
+        </div>
+        <div id="exp-modal-org" class="font-pixel text-retro-orange text-sm mb-1"></div>
+        <h2 id="exp-modal-title" class="font-pixel text-retro-cream text-2xl leading-snug mb-3"
+          style="text-shadow: 0 0 8px #f0b832;"></h2>
       </div>
 
-      <!-- Organization -->
-      <p id="exp-modal-org" class="font-pixel text-retro-cream/40 text-xs tracking-widest mb-2"></p>
-
-      <!-- Title -->
-      <h2 id="exp-modal-title"
-        class="font-pixel text-retro-gold text-xl leading-snug mb-4"
-        style="text-shadow: 0 0 8px #f0b832;"></h2>
-
-      <!-- Divider -->
       <div class="retro-divider-gold"></div>
 
-      <!-- Screenshots -->
+      <!-- Screenshot space -->
       <div id="exp-modal-screenshots"
         class="flex gap-3 overflow-x-auto pb-2 mb-5"
         style="scrollbar-color: #f0b832 #1c0f0f;">
@@ -68,13 +58,16 @@ const { experiences } = Astro.props;
       <p id="exp-modal-details"
         class="font-retro text-retro-cream/80 text-xl leading-relaxed mb-5 whitespace-pre-wrap"></p>
 
+      <!-- Note links -->
+      <div id="exp-modal-notes" class="mb-5 space-y-3"></div>
+
       <!-- Tags -->
       <div class="flex flex-wrap gap-2 mb-5" id="exp-modal-tags"></div>
 
       <!-- Divider -->
       <div class="retro-divider"></div>
 
-      <!-- Link -->
+      <!-- Link (Optional) -->
       <div id="exp-modal-link-wrapper" class="hidden mt-4">
         <a
           id="exp-modal-link"
@@ -103,22 +96,27 @@ const { experiences } = Astro.props;
   const elDetails    = document.getElementById('exp-modal-details');
   const elShots      = document.getElementById('exp-modal-screenshots');
   const elYt         = document.getElementById('exp-modal-youtube');
+  const elNotes      = document.getElementById('exp-modal-notes');
   const elTags       = document.getElementById('exp-modal-tags');
   const elLinkWrap   = document.getElementById('exp-modal-link-wrapper');
   const elLink       = document.getElementById('exp-modal-link');
   const elLinkLbl    = document.getElementById('exp-modal-link-label');
 
-  const tagColorMap = {
-    red:    'border-2 border-retro-red    text-retro-red',
-    orange: 'border-2 border-retro-orange text-retro-orange',
-    gold:   'border-2 border-retro-gold   text-retro-gold',
-  };
-
+  // YouTube URL → 動画ID を抽出し、URLを除去した本文も返す
   function extractYouTube(text) {
     const re = /https?:\/\/(?:youtu\.be\/|(?:www\.)?youtube\.com\/watch\?v=)([\w-]+)[^\s]*/g;
     const ids = [];
+    if (!text) return { ids, clean: '' };
     const clean = text.replace(re, (_, id) => { ids.push(id); return ''; }).replace(/\n{2,}/g, '\n').trim();
     return { ids, clean };
+  }
+
+  function extractNotes(text) {
+    const urls = [];
+    if (!text) return { urls, clean: '' };
+    const re = /https?:\/\/note\.com\/[\w-]+\/n\/[\w-]+(?:\?[^\s]*)?/g;
+    const clean = text.replace(re, (url) => { urls.push(url); return ''; }).replace(/\n{2,}/g, '\n').trim();
+    return { urls, clean };
   }
 
   function openExpModal(expId) {
@@ -130,7 +128,8 @@ const { experiences } = Astro.props;
     elOrg.textContent      = exp.organization;
     elTitle.textContent    = exp.title;
 
-    const { ids: ytIds, clean: detailsClean } = extractYouTube(exp.details);
+    const { ids: ytIds, clean: detailsNoYt } = extractYouTube(exp.details);
+    const { urls: noteUrls, clean: detailsClean } = extractNotes(detailsNoYt);
     elDetails.textContent = detailsClean;
 
     // YouTube 埋め込み
@@ -148,6 +147,29 @@ const { experiences } = Astro.props;
         iframe.setAttribute('loading', 'lazy');
         wrapper.appendChild(iframe);
         elYt.appendChild(wrapper);
+      });
+    }
+
+    // Note リンクカード
+    if (elNotes) {
+      elNotes.innerHTML = '';
+      noteUrls.forEach(url => {
+        const card = document.createElement('a');
+        card.href = url;
+        card.target = '_blank';
+        card.rel = 'noopener noreferrer';
+        card.className = 'flex items-center gap-4 p-4 border-2 border-retro-gold/30 bg-bg-secondary hover:bg-retro-gold/10 transition-colors group';
+        card.innerHTML = `
+          <div class="flex-shrink-0 w-12 h-12 bg-white flex items-center justify-center rounded">
+             <span class="text-black font-bold text-xl">n</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="font-pixel text-retro-gold text-xs mb-1">note.com で記事を読む</div>
+            <div class="font-retro text-retro-cream/80 text-sm truncate underline decoration-retro-gold/50 group-hover:text-retro-gold">${url}</div>
+          </div>
+          <div class="text-retro-gold/40 font-pixel text-xs font-bold">▶ VIEW</div>
+        `;
+        elNotes.appendChild(card);
       });
     }
 
@@ -211,11 +233,10 @@ const { experiences } = Astro.props;
 
     // Tags
     elTags.innerHTML = '';
-    const tc = tagColorMap[exp.accentColor] || tagColorMap.gold;
-    exp.tags.forEach(tag => {
+    exp.tags.forEach(t => {
       const s = document.createElement('span');
-      s.className = `font-pixel bg-bg-primary px-3 py-1 text-xs ${tc}`;
-      s.textContent = tag;
+      s.className = 'font-pixel bg-bg-primary px-3 py-0.5 text-xs text-retro-gold border-2 border-retro-gold/30';
+      s.textContent = t;
       elTags.appendChild(s);
     });
 
@@ -228,41 +249,28 @@ const { experiences } = Astro.props;
       elLinkWrap.classList.add('hidden');
     }
 
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+    // Show
+    modal.classList.remove('pointer-events-none', 'opacity-0');
     document.body.style.overflow = 'hidden';
-
-    const content = modal.querySelector('[class*="pixel-box-gold"]');
-    if (content) {
-      content.style.opacity = '0';
-      content.style.transform = 'scale(0.96) translateY(12px)';
-      content.style.transition = 'opacity 0.2s, transform 0.2s';
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        content.style.opacity = '1';
-        content.style.transform = 'scale(1) translateY(0)';
-      }));
-    }
   }
 
   function closeExpModal() {
-    const content = modal.querySelector('[class*="pixel-box-gold"]');
-    if (content) { content.style.opacity = '0'; content.style.transform = 'scale(0.96)'; }
-    setTimeout(() => {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      document.body.style.overflow = '';
-    }, 200);
+    modal.classList.add('pointer-events-none', 'opacity-0');
+    document.body.style.overflow = '';
   }
+
+  // Listeners
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.exp-card');
+    if (card) {
+      const id = card.getAttribute('data-exp-id');
+      openExpModal(id);
+    }
+  });
 
   closeBtn.addEventListener('click', closeExpModal);
   backdrop.addEventListener('click', closeExpModal);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeExpModal(); });
-
-  document.querySelectorAll('[data-exp-id]').forEach(card => {
-    const id = card.getAttribute('data-exp-id');
-    card.addEventListener('click', () => openExpModal(id));
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openExpModal(id); }
-    });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeExpModal();
   });
 </script>
