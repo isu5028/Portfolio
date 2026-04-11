@@ -37,7 +37,7 @@ export const experiences: Experience[] = [
     category: 'Job',
     thumbnail: 'Live2D',
     description: '2年半の長期アルバイト。主にSDKのissue対応やテスト、サンプル制作を担当。',
-    details: '約2年半にわたり、株式会社Live2Dにてソフトウェアエンジニア（アルバイト）として勤務しました。主な業務として、Live2D SDKのIssue対応、自動テストの構築、開発者向けのサンプルプログラムの作成およびドキュメント整備を行い、SDKの品質向上と導入ハードルの低下に貢献しました。',
+    details: '約2年半にわたり、株式会社Live2Dにてソフトウェアエンジニア（アルバイト）として勤務しました。主な業務として、Live2D Cubism Unity SDKのIssue対応、動作テスト、開発者向けのサンプルプログラムの作成およびドキュメント整備を行い、SDKの品質向上と導入ハードルの低下に貢献しました。',
     tags: ['Unity', 'C#', 'C++', 'TypeScript', 'SDK Development'],
     accentColor: 'orange',
   },
