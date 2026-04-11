@@ -26,7 +26,7 @@ export const experiences: Experience[] = [
     thumbnail: '/experience/BitSummitGameJam.jpg',
     description: 'リードプログラマーとして参加し、東京組グランプリを受賞。',
     details: 'BitSummit Game Jam 2023にて、プランナー5名、プログラマー5名、3Dデザイナー1名のチームにて、リードプログラマーとして参加しました。およそ3か月間のゲーム制作において、技術選定、コアシステムの実装、チームのタスク管理を担当しました。タワーディフェンスゲーム『CETUS』を作成し、東京組グランプリを獲得することができました。',
-    tags: ['Lead Programmer', 'Unity', 'C#'],
+    tags: ['BitSummit Game Jam', 'Lead Programmer', 'Unity', 'C#'],
     accentColor: 'orange',
   },
   {
@@ -38,7 +38,7 @@ export const experiences: Experience[] = [
     thumbnail: 'Live2D',
     description: '2年半の長期アルバイト。主にSDKのissue対応やテスト、サンプル制作を担当。',
     details: '約2年半にわたり、株式会社Live2Dにてソフトウェアエンジニア（アルバイト）として勤務しました。主な業務として、Live2D SDKのIssue対応、自動テストの構築、開発者向けのサンプルプログラムの作成およびドキュメント整備を行い、SDKの品質向上と導入ハードルの低下に貢献しました。',
-    tags: ['C++', 'Unity', 'C#', 'SDK Development'],
+    tags: ['Unity', 'C#', 'C++', 'TypeScript', 'SDK Development'],
     accentColor: 'orange',
   },
   {
@@ -50,7 +50,7 @@ export const experiences: Experience[] = [
     thumbnail: '/experience/Terminator.png',
     description: '第88回全国大会で発表。明暗境界線のスタイルを統一的に制御する手法を提案。',
     details: '「明暗境界線の統一的スタイル化手法」という題目で卒業論文を執筆しました。3DCGにおける非実写的レンダリングにおいて重要な役割を果たす明暗境界線に対して、ユーザーが意図したスタイルを効率的に適用・制御できる手法を提案し、情報処理学会 第88回全国大会にて口頭発表を行いました。',
-    tags: ['NPR', 'Research', 'Python', 'Maya'],
+    tags: ['NPR', 'Research', 'Unity', 'HLSL'],
     accentColor: 'orange',
   },
   {
@@ -74,7 +74,7 @@ export const experiences: Experience[] = [
     thumbnail: 'RE ENGINE',
     description: 'カプコン社内エンジン「RE ENGINE」を使用したゲーム制作。',
     details: 'Capcom Games Competitionにチーム参加し、カプコンの社内ゲーム開発エンジン「RE ENGINE」を使用したプロトタイプ制作を行いました。商用エンジンならではの機能やワークフローを体験し、限られた期間内での高効率な開発に挑戦しました。',
-    tags: ['RE ENGINE', 'C++'],
+    tags: ['RE ENGINE', 'C#'],
     accentColor: 'orange',
   },
   {
