@@ -25,7 +25,7 @@ export const experiences: Experience[] = [
     category: 'Competition',
     thumbnail: '/experience/BitSummitGameJam.jpg',
     description: 'リードプログラマーとして参加し、東京組グランプリを受賞。',
-    details: 'BitSummit Game Jam 2023にて、プランナー5名、プログラマー5名、3Dデザイナー1名のチームにて、リードプログラマーとして参加しました。およそ3か月間のゲーム制作において、技術選定、コアシステムの実装、チームのタスク管理を担当しました。タワーディフェンスゲーム『CETUS』を作成し、東京組グランプリを獲得することができました。',
+    details: 'BitSummit Game Jam 2023にて、プランナー4名、プログラマー5名、3Dデザイナー1名のチームにて、リードプログラマーとして参加しました。およそ3か月間のゲーム制作において、技術選定、コアシステムの実装、チームのタスク管理を担当しました。タワーディフェンスゲーム『CETUS』を作成し、東京組グランプリを獲得することができました。',
     tags: ['BitSummit Game Jam', 'Lead Programmer', 'Unity', 'C#'],
     accentColor: 'orange',
   },
