@@ -73,7 +73,7 @@ export const experiences: Experience[] = [
     category: 'Competition',
     thumbnail: 'RE ENGINE',
     description: 'カプコン社内エンジン「RE ENGINE」を使用したゲーム制作。',
-    details: 'Capcom Games Competitionにチーム参加し、カプコンの社内ゲーム開発エンジン「RE ENGINE」を使用したプロトタイプ制作を行いました。商用エンジンならではの機能やワークフローを体験し、限られた期間内での高効率な開発に挑戦しました。',
+    details: 'Capcom Games Competitionにチーム参加し、カプコンの社内ゲーム開発エンジン「RE ENGINE」を使用したゲーム制作を行いました。商用エンジンならではの機能やワークフローを体験し、限られた期間内での高効率な開発に挑戦しました。',
     tags: ['RE ENGINE', 'C#'],
     accentColor: 'orange',
   },
