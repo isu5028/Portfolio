@@ -23,9 +23,39 @@ const socials = [
   { label: 'itch.io',     href: 'https://isu502884.itch.io/',   id: 'link-itchio'  },
   { label: 'Twitter / X', href: 'https://x.com/isu502884',      id: 'link-twitter' },
 ];
+
+const pageDescription =
+  '八木寛季（isu）のゲーム開発ポートフォリオ。Unity・Godot・C#・HLSL・C++を使った制作実績、受賞歴、職務経験、連絡先を掲載。';
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: '八木 寛季',
+  alternateName: 'isu',
+  jobTitle: 'Game Developer',
+  email: 'mailto:isu502884@gmail.com',
+  sameAs: socials.map((social) => social.href),
+};
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'isu / 八木寛季 | Game Developer Portfolio',
+  description: pageDescription,
+  url: Astro.url.origin,
+  inLanguage: 'ja-JP',
+};
 ---
 
-<Layout title="isu / 八木寛季 | Game Developer Portfolio">
+<Layout
+  title="isu / 八木寛季 | Game Developer Portfolio"
+  description={pageDescription}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
+  </Fragment>
+
   <Navbar />
 
   <!-- ========== HERO ========== -->
