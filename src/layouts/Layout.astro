@@ -15,8 +15,9 @@ const {
   noindex = false,
 } = Astro.props;
 
-const canonical = Astro.url;
-const ogImage = new URL(image, Astro.url).toString();
+const resolvedUrl = Astro.site ? new URL(Astro.url.pathname + Astro.url.search, Astro.site) : null;
+const canonical = resolvedUrl?.toString();
+const ogImage = Astro.site ? new URL(image, Astro.site).toString() : image;
 ---
 
 <!doctype html>
@@ -24,15 +25,17 @@ const ogImage = new URL(image, Astro.url).toString();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="八木寛季（isu）" />
     <meta name="description" content={description} />
+    <meta name="keywords" content="八木寛季,ポートフォリオ,isu,ゲーム開発,Game Developer,Unity,Godot,C#,HLSL,C++" />
     <meta name="robots" content={noindex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large'} />
-    <link rel="canonical" href={canonical} />
+    {canonical && <link rel="canonical" href={canonical} />}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="isu / 八木寛季 Portfolio" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImage} />
 
     <meta name="twitter:card" content="summary_large_image" />

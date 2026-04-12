@@ -25,15 +25,16 @@ const socials = [
 ];
 
 const pageDescription =
-  '八木寛季（isu）のゲーム開発ポートフォリオ。Unity・Godot・C#・HLSL・C++を使った制作実績、受賞歴、職務経験、連絡先を掲載。';
+  '八木寛季 ポートフォリオ。isu名義で活動するゲーム開発者の制作実績、受賞歴、職務経験、連絡先を掲載。Unity・Godot・C#・HLSL・C++対応。';
 
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: '八木 寛季',
+  name: '八木寛季',
   alternateName: 'isu',
   jobTitle: 'Game Developer',
   email: 'mailto:isu502884@gmail.com',
+  description: pageDescription,
   sameAs: socials.map((social) => social.href),
 };
 
@@ -42,13 +43,13 @@ const websiteJsonLd = {
   '@type': 'WebSite',
   name: 'isu / 八木寛季 | Game Developer Portfolio',
   description: pageDescription,
-  url: Astro.url.origin,
+  ...(Astro.site ? { url: Astro.site.toString() } : {}),
   inLanguage: 'ja-JP',
 };
 ---
 
 <Layout
-  title="isu / 八木寛季 | Game Developer Portfolio"
+  title="八木寛季 ポートフォリオ | isu Game Developer"
   description={pageDescription}
 >
   <Fragment slot="head">
