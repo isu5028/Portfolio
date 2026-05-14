@@ -33,7 +33,7 @@ export const games: Game[] = [
 
     ],
     description:
-      'ダンジョン探索×倉庫番系パズルゲーム。敵・プレイヤー・ダンジョンの仕組みを発見し、知識を積み重ねながら謎を解く、知識アンロック型パズル。2026年4月にsteamで配信開始。\n\nhttps://youtu.be/Y-dZxEQjsxA\n\n倉庫番パズルの基本となる、CommandパターンによるUndo/Redo/Resetシステムの実装や、このゲームの独自性である、プレイヤーや敵がステージ間を跨いだ行動をしても破綻が起きないような変数管理設計を行った。\n\n各種ステージを編集しやすいよう、ScriptableObjectをもとにCustomEditorを用いたレベルデザインを行った。',
+      'ダンジョン探索×倉庫番系パズルゲーム。敵・プレイヤー・ダンジョンの仕組みを発見し、知識を積み重ねながら謎を解く、知識アンロック型パズル。2026年4月にsteamで配信開始。\n\n倉庫番パズルの基本となる、CommandパターンによるUndo/Redo/Resetシステムの実装や、このゲームの独自性である、プレイヤーや敵がステージ間を跨いだ行動をしても破綻が起きないような変数管理設計を行った。\n\n各種ステージを編集しやすいよう、ScriptableObjectをもとにCustomEditorを用いたレベルデザインを行った。\n\nhttps://youtu.be/Y-dZxEQjsxA',
     genre: 'パズル',
     tools: ['Unity', 'C#', 'Aseprite'],
     link: 'https://store.steampowered.com/app/4542250/GRID_CRYPT/',

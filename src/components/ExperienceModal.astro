@@ -107,7 +107,7 @@ const { experiences } = Astro.props;
     const re = /https?:\/\/(?:youtu\.be\/|(?:www\.)?youtube\.com\/watch\?v=)([\w-]+)[^\s]*/g;
     const ids = [];
     if (!text) return { ids, clean: '' };
-    const clean = text.replace(re, (_, id) => { ids.push(id); return ''; }).replace(/\n{2,}/g, '\n').trim();
+    const clean = text.replace(re, (_, id) => { ids.push(id); return ''; }).trim();
     return { ids, clean };
   }
 
@@ -115,7 +115,7 @@ const { experiences } = Astro.props;
     const urls = [];
     if (!text) return { urls, clean: '' };
     const re = /https?:\/\/note\.com\/[\w-]+\/n\/[\w-]+(?:\?[^\s]*)?/g;
-    const clean = text.replace(re, (url) => { urls.push(url); return ''; }).replace(/\n{2,}/g, '\n').trim();
+    const clean = text.replace(re, (url) => { urls.push(url); return ''; }).trim();
     return { urls, clean };
   }
 
