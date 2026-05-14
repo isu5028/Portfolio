@@ -61,6 +61,23 @@ export const games: Game[] = [
     glowColor: 'rgba(255, 0, 0, 0.4)',
   },
   {
+    id: 'game-2.5',
+    title: 'BUILDOBAN',
+    thumbnail: '/games/icon_buildoban.png',
+    screenshots: [
+      { src: '/games/ss_buildoban1.png', alt: 'ゲームプレイ画面 1' },
+      { src: '/games/ss_buildoban2.png', alt: 'ゲームプレイ画面 2' },
+    ],
+    description: '500人規模のオンライン海外ゲームジャム、Gamedev.js 2026参加作品。総合2位、Youtube Playable Challenge4位、Deploy to Wavedash Challenge2位。合体と同期を駆使してクリアを目指す、倉庫番系パズル。',
+    genre: 'パズル',
+    tools: ['Godot', 'GDscript', 'Aseprite'],
+    link: 'https://itch.io/jam/gamedevjs-2026/rate/4511581',
+    linkLabel: 'itch.io',
+    year: '2026',
+    accentColor: 'orange',
+    glowColor: 'rgba(255, 0, 0, 0.4)',
+  },
+  {
     id: 'game-3',
     title: 'Untitled',
     thumbnail: '/games/icon_untitled.gif',
