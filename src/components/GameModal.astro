@@ -16,7 +16,7 @@ const { games } = Astro.props;
   <div id="modal-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"></div>
 
   <!-- Modal Content -->
-  <div class="relative z-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto
+  <div class="relative z-10 w-full max-w-6xl max-h-[90vh] overflow-y-auto
     bg-bg-primary pixel-box-gold">
 
     <!-- Header bar -->
@@ -31,7 +31,17 @@ const { games } = Astro.props;
       </button>
     </div>
 
-    <div class="p-6">
+    <div class="p-5 lg:p-6">
+      <div class="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.85fr)] lg:items-start">
+        <div class="min-w-0 lg:sticky lg:top-6">
+          <!-- Screenshots carousel -->
+          <div id="modal-screenshots" class="mb-5 lg:mb-4"></div>
+
+          <!-- YouTube embeds -->
+          <div id="modal-youtube" class="mb-5 lg:mb-0 space-y-3"></div>
+        </div>
+
+        <div class="min-w-0">
       <!-- Genre + Title -->
       <div class="mb-5">
         <div id="modal-genre" class="font-pixel text-retro-cream/40 text-sm mb-2 tracking-widest"></div>
@@ -42,14 +52,8 @@ const { games } = Astro.props;
 
       <div class="retro-divider-gold"></div>
 
-      <!-- Screenshots carousel -->
-      <div id="modal-screenshots" class="mb-5"></div>
-
-      <!-- YouTube embeds -->
-      <div id="modal-youtube" class="mb-5 space-y-3"></div>
-
       <!-- Description -->
-      <p id="modal-description" class="font-retro text-retro-cream/80 text-xl leading-relaxed mb-5 whitespace-pre-wrap"></p>
+      <p id="modal-description" class="font-retro text-retro-cream/80 text-lg xl:text-xl leading-relaxed mb-5 whitespace-pre-wrap"></p>
 
       <!-- Note links -->
       <div id="modal-notes" class="mb-5 space-y-3"></div>
@@ -67,6 +71,8 @@ const { games } = Astro.props;
         >
           <span id="modal-link-label">▶ PLAY GAME</span>
         </a>
+      </div>
+        </div>
       </div>
     </div>
   </div>
@@ -215,8 +221,9 @@ const { games } = Astro.props;
       probe.src = ss.src;
     }))).then(dims => {
       const containerW = track.offsetWidth || 600;
+      const maxMediaH = window.matchMedia('(min-width: 1024px)').matches ? 340 : 420;
       const targetH = Math.min(
-        480,
+        maxMediaH,
         Math.min(...dims.map(d => Math.round(containerW * d.h / d.w)))
       );
       track.style.height = targetH + 'px';
@@ -237,7 +244,7 @@ const { games } = Astro.props;
     modalYt.innerHTML = '';
     ytIds.forEach(id => {
       const wrapper = document.createElement('div');
-      wrapper.className = 'relative w-full border-2 border-retro-orange/40';
+      wrapper.className = 'relative w-full border-2 border-retro-orange/40 bg-bg-secondary';
       wrapper.style.paddingTop = '56.25%'; // 16:9
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.youtube.com/embed/${id}`;
