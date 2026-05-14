@@ -63,10 +63,11 @@ export const games: Game[] = [
   {
     id: 'game-2.5',
     title: 'BUILDOBAN',
-    thumbnail: '/games/icon_buildoban.png',
+    thumbnail: '/games/icon_buildoban.gif',
     screenshots: [
       { src: '/games/ss_buildoban1.png', alt: 'ゲームプレイ画面 1' },
       { src: '/games/ss_buildoban2.png', alt: 'ゲームプレイ画面 2' },
+      { src: '/games/ss_buildoban3.png', alt: 'ゲームプレイ画面 3' },
     ],
     description: '500人規模のオンライン海外ゲームジャム、Gamedev.js 2026参加作品。総合2位、Youtube Playable Challenge4位、Deploy to Wavedash Challenge2位。合体と同期を駆使してクリアを目指す、倉庫番系パズル。',
     genre: 'パズル',
