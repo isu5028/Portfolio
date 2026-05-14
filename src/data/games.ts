@@ -63,7 +63,7 @@ export const games: Game[] = [
   {
     id: 'game-2.5',
     title: 'BUILDOBAN',
-    thumbnail: '/games/icon_buildoban.gif',
+    thumbnail: '/games/icon_buildoban.png',
     screenshots: [
       { src: '/games/ss_buildoban1.png', alt: 'ゲームプレイ画面 1' },
       { src: '/games/ss_buildoban2.png', alt: 'ゲームプレイ画面 2' },
