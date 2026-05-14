@@ -61,15 +61,15 @@ export const games: Game[] = [
     glowColor: 'rgba(255, 0, 0, 0.4)',
   },
   {
-    id: 'game-2.5',
+    id: 'game-25',
     title: 'BUILDOBAN',
-    thumbnail: '/games/icon_buildoban.png',
+    thumbnail: '/games/icon_buildoban.gif',
     screenshots: [
       { src: '/games/ss_buildoban1.png', alt: 'ゲームプレイ画面 1' },
       { src: '/games/ss_buildoban2.png', alt: 'ゲームプレイ画面 2' },
       { src: '/games/ss_buildoban3.png', alt: 'ゲームプレイ画面 3' },
     ],
-    description: '500人規模のオンライン海外ゲームジャム、Gamedev.js 2026参加作品。総合2位、Youtube Playable Challenge4位、Deploy to Wavedash Challenge2位。合体と同期を駆使してクリアを目指す、倉庫番系パズル。',
+    description: '500人規模のオンライン海外ゲームジャム、Gamedev.js 2026参加作品。総合2位、Youtube Playable Challenge 4位、Deploy to Wavedash Challenge 2位。合体と同期を駆使してクリアを目指す、倉庫番系パズル。\n軽量オープンソースゲームエンジンGodotを用い、短期間で企画・開発を行った。レベルエディタ・コマンドパターンによる入力制御を実装。\nhttps://www.youtube.com/watch?v=dzC0jU73puw&t=33s',
     genre: 'パズル',
     tools: ['Godot', 'GDscript', 'Aseprite'],
     link: 'https://itch.io/jam/gamedevjs-2026/rate/4511581',
