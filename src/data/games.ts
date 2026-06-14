@@ -33,7 +33,7 @@ export const games: Game[] = [
 
     ],
     description:
-      'ダンジョン探索×倉庫番系パズルゲーム。敵・プレイヤー・ダンジョンの仕組みを発見し、知識を積み重ねながら謎を解く、知識アンロック型パズル。2026年4月にsteamで配信開始。\n\n倉庫番パズルの基本となる、CommandパターンによるUndo/Redo/Resetシステムの実装や、このゲームの独自性である、プレイヤーや敵がステージ間を跨いだ行動をしても破綻が起きないような変数管理設計を行った。\n\n各種ステージを編集しやすいよう、ScriptableObjectをもとにCustomEditorを用いたレベルデザインを行った。\n\nコーディングのサポートにCodexを利用。\n\nhttps://youtu.be/Y-dZxEQjsxA',
+      'ダンジョン探索×倉庫番系パズルゲーム。敵・プレイヤー・ダンジョンの仕組みを発見し、知識を積み重ねながら謎を解く、知識アンロック型パズル。2026年4月にsteamで配信開始。\n\n倉庫番パズルの基本となる、CommandパターンによるUndo/Redo/Resetシステムの実装や、このゲームの独自性である、プレイヤーや敵がステージ間を跨いだ行動をしても破綻が起きないような変数管理設計を行った。\n\n各種ステージを編集しやすいよう、ScriptableObjectをもとにCustomEditorを用いたレベルデザインを行った。\n\nコーディングのサポートにCodexを利用。\n\n有料販売中のため、必要に応じて選考用のSteamキーを共有いたします。\n\nhttps://youtu.be/Y-dZxEQjsxA',
     genre: 'パズル',
     tools: ['Unity', 'C#', 'Aseprite'],
     link: 'https://store.steampowered.com/app/4542250/GRID_CRYPT/',
@@ -97,6 +97,23 @@ export const games: Game[] = [
   },
   {
     id: 'game-4',
+    title: 'BATTLE JUNK',
+    thumbnail: '/games/icon_battlejunk.png',
+    screenshots: [
+      { src: '/games/ss_battlejunk1.jpg', alt: 'ゲームプレイ画面 1' },
+      { src: '/games/ss_battlejunk2.jpg', alt: 'ゲームプレイ画面 2' },
+    ],
+    description: '倒した敵を乗っ取って、ころころ機体を入れ替える3Dアクションシューティング。東京ゲームダンジョン3、コミックマーケット103、第17回Game^3にて展示。\n\n低解像度RenderTextureを利用し、3Dのグラフィックをあえてレトロゲーム風にし、独自の雰囲気を演出。\nhttps://youtu.be/uBslQH_BQtc',
+    genre: 'アクション',
+    tools: ['Unity', 'C#', 'Blender'],
+    //link: 'https://godotplayer.com/games/coffeeattorneythree',
+    //linkLabel: 'godot player',
+    year: '2022-2023',
+    accentColor: 'orange',
+    glowColor: 'rgba(255, 0, 0, 0.4)',
+  },
+  {
+    id: 'game-5',
     title: 'Input Myself',
     thumbnail: '/games/icon_inputmyself.gif',
     screenshots: [
@@ -113,7 +130,7 @@ export const games: Game[] = [
     glowColor: 'rgba(255, 0, 0, 0.4)',
   },
   {
-    id: 'game-5',
+    id: 'game-6',
     title: 'つりつり',
     thumbnail: '/games/icon_fishing.png',
     screenshots: [
@@ -132,24 +149,7 @@ export const games: Game[] = [
     glowColor: 'rgba(255, 0, 0, 0.4)',
   },
   {
-    id: 'game-6',
-    title: 'BATTLE JUNK',
-    thumbnail: '/games/icon_battlejunk.png',
-    screenshots: [
-      { src: '/games/ss_battlejunk1.jpg', alt: 'ゲームプレイ画面 1' },
-      { src: '/games/ss_battlejunk2.jpg', alt: 'ゲームプレイ画面 2' },
-    ],
-    description: '倒した敵を乗っ取って、ころころ機体を入れ替える3Dアクションシューティング。東京ゲームダンジョン3、コミックマーケット103、第17回Game^3にて展示。\n\n低解像度RenderTextureを利用し、3Dのグラフィックをあえてレトロゲーム風にし、独自の雰囲気を演出。\nhttps://youtu.be/uBslQH_BQtc',
-    genre: 'アクション',
-    tools: ['Unity', 'C#', 'Blender'],
-    //link: 'https://godotplayer.com/games/coffeeattorneythree',
-    //linkLabel: 'godot player',
-    year: '2022-2023',
-    accentColor: 'orange',
-    glowColor: 'rgba(255, 0, 0, 0.4)',
-  },
-  {
-    id: 'game-8',
+    id: 'game-7',
     title: 'HONEYCOMB CONQUEROR',
     thumbnail: '/games/icon_honey.gif',
     screenshots: [
@@ -167,7 +167,7 @@ export const games: Game[] = [
     glowColor: 'rgba(255, 0, 0, 0.4)',
   },
   {
-    id: 'game-7',
+    id: 'game-8',
     title: '珈琲裁判3',
     thumbnail: '/games/icon_coffee.png',
     screenshots: [
