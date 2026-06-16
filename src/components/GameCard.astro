@@ -61,10 +61,10 @@ const titleColor = titleMap[game.accentColor] ?? 'text-retro-orange';
       opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-black/50">
       <span class="font-pixel text-retro-gold text-lg animate-blink">▶ START</span>
     </div>
-    <!-- Year badge -->
-    <div class="absolute top-2 right-2">
+    <!-- Tool tag badge -->
+    <div class="absolute top-2 left-2">
       <span class={`font-pixel bg-bg-primary px-2 py-0.5 border-2 border-current ${titleColor} text-sm`}>
-        {game.year}
+        {game.tools[0]}
       </span>
     </div>
   </div>
