@@ -429,7 +429,7 @@ export const games: Game[] = [
     ],
     description: 'unity1week「さがす」参加作品。表示されるどうぶつを画面から探すゲーム。',
     genre: '一発ネタ',
-    tools: ['Godot', 'GDScript'],
+    tools: ['Unity', 'C#'],
     link: 'https://unityroom.com/games/dobutsusagashi',
     linkLabel: 'unityroom',
     year: '2019',
