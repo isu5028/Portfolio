@@ -87,7 +87,7 @@ export const games: Game[] = [
       { src: '/games/ss_battlejunk2.jpg', alt: 'ゲームプレイ画面 2' },
     ],
     description: '倒した敵を乗っ取って、ころころ機体を入れ替える3Dアクションシューティング。東京ゲームダンジョン3、コミックマーケット103、第17回Game^3にて展示。\n\n低解像度RenderTextureを利用し、3Dのグラフィックをあえてレトロゲーム風にし、独自の雰囲気を演出。\nhttps://youtu.be/lva9YWCJrUM',
-    genre: '出展イベント参加',
+    genre: '複数出展イベントに参加',
     tools: ['Unity', 'C#', 'Blender'],
     link: 'https://isu502884.itch.io/battle-junk',
     linkLabel: 'itch.io',
