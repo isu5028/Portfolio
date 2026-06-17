@@ -52,7 +52,7 @@ export const games: Game[] = [
     ],
     description:
       'BitSummitGameJam2023参加作品。リードプログラマーとして開発に携わり、東京組グランプリを受賞。宇宙クジラが星座の力を借りながら隕石を破壊して地球を守る、3Dタワーディフェンスゲーム。\n\nInputSystemを用いた入力処理、インゲームのプレイヤー操作やUI管理、ゲームフローの実装を担当し、チーム全体の進捗管理を行った。\nhttps://youtu.be/x4m3-GoM4oA',
-    genre: 'BitSummitGameJamグランプリ',
+    genre: 'BitSummitGameJam受賞',
     tools: ['Unity', 'C#', 'Blender'],
     link: 'https://bitsummit-gamejam.itch.io/cetus',
     linkLabel: 'itch.io',
@@ -70,7 +70,7 @@ export const games: Game[] = [
       { src: '/games/ss_buildoban3.png', alt: 'ゲームプレイ画面 3' },
     ],
     description: '参加作品500件規模のオンライン海外ゲームジャム、Gamedev.js 2026参加作品。総合2位、Youtube Playable Challenge 4位、Deploy to Wavedash Challenge 2位。合体と同期を駆使してクリアを目指す、倉庫番系パズル。\n\n軽量オープンソースゲームエンジンGodotを用い、短期間で企画・開発を行った。レベルエディタ・コマンドパターンによる入力制御を実装。\n\nコーディングのサポートにCodexを利用。\n\nhttps://www.youtube.com/watch?v=dzC0jU73puw&t=33s',
-    genre: 'Gamedev.js 総合2位',
+    genre: 'Gamedev.js Jam総合2位',
     tools: ['Godot', 'GDscript', 'Aseprite'],
     link: 'https://itch.io/jam/gamedevjs-2026/rate/4511581',
     linkLabel: 'itch.io',
