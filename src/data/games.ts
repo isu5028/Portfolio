@@ -105,7 +105,7 @@ export const games: Game[] = [
       { src: '/games/ss_hexokoban3.png', alt: 'ゲームプレイ画面 3' },
       { src: '/games/ss_hexokoban4.png', alt: 'レベルエディタ画面 4' },
     ],
-    description: 'C++とDirectX 11で作成した、六角形グリッド倉庫番パズル。\n\nパズルを解く試行錯誤をしやすくするためのUndo/Redo/Reset機能、ステージ制作を効率化するレベルエディタ、XAudio2を用いたサウンド処理、GDIを用いたフォント処理を実装。\n\nコーディングのサポートにCodexを利用。\n\nhttps://youtu.be/KFvsQYcGwus',
+    description: 'C++とDirectX 11で作成した、六角形グリッド倉庫番パズル。\n\nパズルを解く試行錯誤をしやすくするためのUndo/Redo/Reset機能、ステージ制作を効率化するレベルエディタを作成し、UXや開発効率の向上を目指した。また、描画にはDirectX 11を用い2Dレンダラーを作成し、XAudio2を用いたサウンド処理、GDIを用いたフォント処理を実装。\n\nコーディングのサポートにCodexを利用。\n\nhttps://youtu.be/KFvsQYcGwus',
     genre: 'C++とDirectX 11で作成',
     tools: ['C++', 'DirectX 11'],
     link: 'https://isu502884.itch.io/hexokoban',
