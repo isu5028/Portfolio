@@ -61,17 +61,7 @@ const { games } = Astro.props;
       <div class="retro-divider"></div>
 
       <!-- Link -->
-      <div id="modal-link-wrapper" class="hidden mt-4">
-        <a
-          id="modal-link"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="pixel-btn-orange inline-block"
-        >
-          <span id="modal-link-label">▶ PLAY GAME</span>
-        </a>
-      </div>
+      <div id="modal-link-wrapper" class="hidden mt-4 flex flex-wrap gap-3"></div>
         </div>
       </div>
     </div>
@@ -92,8 +82,6 @@ const { games } = Astro.props;
   const modalNotes   = document.getElementById('modal-notes');
   const modalDesc    = document.getElementById('modal-description');
   const modalLinkWrap= document.getElementById('modal-link-wrapper');
-  const modalLink    = document.getElementById('modal-link');
-  const modalLinkLbl = document.getElementById('modal-link-label');
 
   const toolColorMap = {
     cyan:   'border-2 border-retro-orange text-retro-orange',
@@ -277,10 +265,23 @@ const { games } = Astro.props;
       modalNotes.appendChild(card);
     });
 
-    if (game.link) {
+    const gameLinks = [
+      ...(game.link ? [{ url: game.link, label: game.linkLabel || '遊んでみる' }] : []),
+      ...(game.links || []),
+    ];
+
+    modalLinkWrap.innerHTML = '';
+    if (gameLinks.length) {
       modalLinkWrap.classList.remove('hidden');
-      modalLink.href = game.link;
-      if (modalLinkLbl) modalLinkLbl.textContent = '▶ ' + (game.linkLabel || '遊んでみる');
+      gameLinks.forEach(({ url, label }) => {
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.className = 'pixel-btn-orange inline-block';
+        link.textContent = '▶ ' + label;
+        modalLinkWrap.appendChild(link);
+      });
     } else {
       modalLinkWrap.classList.add('hidden');
     }
