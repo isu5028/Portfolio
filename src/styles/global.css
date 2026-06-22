@@ -59,6 +59,7 @@
   .pixel-btn-orange { @apply pixel-btn text-retro-orange; }
   .pixel-btn-gold   { @apply pixel-btn text-retro-gold;   }
   .pixel-btn-cream  { @apply pixel-btn text-retro-cream;  }
+  .pixel-btn-white  { @apply pixel-btn text-white;        }
 
   /* ── Dashed dividers ── */
   .retro-divider {

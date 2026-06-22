@@ -266,19 +266,20 @@ const { games } = Astro.props;
     });
 
     const gameLinks = [
-      ...(game.link ? [{ url: game.link, label: game.linkLabel || '遊んでみる' }] : []),
-      ...(game.links || []),
+      ...(game.link ? [{ url: game.link, label: game.linkLabel || '遊んでみる', className: 'pixel-btn-orange' }] : []),
+      ...(game.links || []).map(link => ({ ...link, className: 'pixel-btn-orange' })),
+      ...(game.gitLink ? [{ url: game.gitLink, label: 'Git', className: 'pixel-btn-white' }] : []),
     ];
 
     modalLinkWrap.innerHTML = '';
     if (gameLinks.length) {
       modalLinkWrap.classList.remove('hidden');
-      gameLinks.forEach(({ url, label }) => {
+      gameLinks.forEach(({ url, label, className }) => {
         const link = document.createElement('a');
         link.href = url;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
-        link.className = 'pixel-btn-orange inline-block';
+        link.className = className + ' inline-block';
         link.textContent = '▶ ' + label;
         modalLinkWrap.appendChild(link);
       });

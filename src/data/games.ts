@@ -22,6 +22,7 @@ export interface Game {
   link?: string;
   linkLabel?: string;
   links?: GameLink[];
+  gitLink?: string;
   year: string;
   accentColor: string;     // カードのアクセントカラー (Tailwindクラス用)
   glowColor: string;       // グローのCSS color
@@ -44,6 +45,7 @@ export const games: Game[] = [
     tools: ['Unity', 'C#', 'Aseprite'],
     link: 'https://store.steampowered.com/app/4542250/GRID_CRYPT/',
     linkLabel: 'steam',
+    gitLink: 'https://github.com/isu5028/GridPuzzle',
     year: '2026',
     accentColor: 'orange',
     glowColor: 'rgba(255, 0, 0, 0.4)',
@@ -62,6 +64,7 @@ export const games: Game[] = [
     tools: ['Unity', 'C#', 'Blender'],
     link: 'https://bitsummit-gamejam.itch.io/cetus',
     linkLabel: 'itch.io',
+    gitLink: 'https://github.com/isu5028/BitSummit',
     year: '2023',
     accentColor: 'orange',
     glowColor: 'rgba(255, 0, 0, 0.4)',
@@ -86,6 +89,7 @@ export const games: Game[] = [
         label: 'Youtube Playables',
       },
     ],
+    gitLink: 'https://github.com/isu5028/GodotMachines',
     year: '2026',
     accentColor: 'orange',
     glowColor: 'rgba(255, 0, 0, 0.4)',
@@ -122,6 +126,7 @@ export const games: Game[] = [
     tools: ['C++', 'DirectX 11'],
     link: 'https://isu502884.itch.io/hexokoban',
     linkLabel: 'itch.io',
+    gitLink: 'https://github.com/isu5028/Hexagon',
     year: '2026',
     accentColor: 'orange',
     glowColor: 'rgba(255, 0, 0, 0.4)',
