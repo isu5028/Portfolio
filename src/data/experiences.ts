@@ -8,6 +8,7 @@ export interface Experience {
   period: string;          // 期間
   category: string;        // カテゴリ（Competition / Job / Research / Project など）
   thumbnail: string;       // カードに使うアイコン画像
+  screenshots?: { src: string; alt: string }[];
   description: string;     // 短い説明（カード表示用）
   details: string;         // 詳細説明（モーダル表示用）
   tags: string[];          // 使用ツール・キーワード
@@ -27,6 +28,38 @@ export const experiences: Experience[] = [
     description: 'リードプログラマーとして参加し、東京組グランプリを受賞。',
     details: 'BitSummit Game Jam 2023にて、プランナー4名、プログラマー5名、3Dデザイナー1名のチームにて、リードプログラマーとして参加しました。およそ3か月間のゲーム制作において、技術選定、コアシステムの実装、チームのタスク管理を担当しました。タワーディフェンスゲーム『CETUS』を作成し、東京組グランプリを獲得することができました。',
     tags: ['BitSummit Game Jam', 'Lead Programmer', 'Unity', 'C#'],
+    accentColor: 'orange',
+  },
+  {
+    id: 'exp-entrustx',
+    title: 'Entrust(X)',
+    organization: 'VRChat / Team Project',
+    period: '2026',
+    category: 'Project',
+    thumbnail: '/experience/EntrustX.png',
+    description: '写真の共有を通じて謎を解くVRChatワールド。Unityシーン・描画・軽量化を担当。',
+    details: 'VRChatの謎解きワールド「Entrust(X)」の制作に参加しました。ワールドで撮影してXに投稿された写真が、別のインスタンスにも共有される仕組みを取り入れ、他のプレイヤーの写真を手がかりに謎を解くゲームです。\n\n自身はUnityシーンの制作・調整、描画周りの実装・調整、軽量化を担当しました。謎解きシステム、現実時間に合わせて空が変化するシステム、UI周りの実装を行いました。また、VRChatの仕様に合わせてDraw Callやバッチ数を削減し、描画負荷の軽減に取り組みました。\n\n写真共有システムの仕組みは、以下の開発メンバーによる解説記事で紹介されています。\n\nhttps://note.com/hadnf/n/n0c41e3211e3d\n\nhttps://www.youtube.com/watch?v=XMwWPlfKnso',
+    tags: ['Unity', 'VRChat', 'Rendering', 'Optimization', 'Team Development'],
+    accentColor: 'orange',
+  },
+  {
+    id: 'exp-buildoban',
+    title: 'BUILDOBAN',
+    organization: 'Gamedev.js Jam 2026 / YouTube Playables',
+    period: '2026',
+    category: 'Competition',
+    thumbnail: '/experience/buildoban.gif',
+    screenshots: [
+      { src: '/experience/buildoban.gif', alt: 'BUILDOBAN ゲームプレイ動画' },
+      { src: '/games/ss_buildoban1.png', alt: 'BUILDOBAN ゲームプレイ画面 1' },
+      { src: '/games/ss_buildoban2.png', alt: 'BUILDOBAN ゲームプレイ画面 2' },
+      { src: '/games/ss_buildoban3.png', alt: 'BUILDOBAN ゲームプレイ画面 3' },
+    ],
+    description: 'Gamedev.js Jam 2026で総合2位。YouTube Playablesで5万プレイを達成。',
+    details: '合体と同期を駆使してクリアを目指す、倉庫番系パズルゲームです。参加作品約500件のオンライン海外ゲームジャム「Gamedev.js Jam 2026」に参加し、総合2位、YouTube Playable Challenge 4位、Deploy to Wavedash Challenge 2位を獲得しました。\n\nYouTubeのゲームプラットフォーム「YouTube Playables」でも公開し、5万プレイを達成しました。\n\nGodotを用いて短期間で企画・開発を行い、レベルエディタと、コマンドパターンによる入力制御を実装しました。コーディングのサポートにはCodexを活用しました。\n\nhttps://www.youtube.com/watch?v=dzC0jU73puw&t=33s',
+    tags: ['Godot', 'GDScript', 'Aseprite', 'Gamedev.js Jam', 'YouTube Playables'],
+    link: 'https://youtube.com/playables/Ugkx1VSKxkglrnIIeBdXRg625K4aWH2q87PR',
+    linkLabel: 'YouTube Playablesで遊ぶ',
     accentColor: 'orange',
   },
   {

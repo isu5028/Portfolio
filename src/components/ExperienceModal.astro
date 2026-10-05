@@ -141,6 +141,7 @@ const { experiences } = Astro.props;
         wrapper.style.paddingTop = '56.25%';
         const iframe = document.createElement('iframe');
         iframe.src = `https://www.youtube.com/embed/${id}`;
+        iframe.title = `${exp.title} 紹介動画`;
         iframe.className = 'absolute inset-0 w-full h-full';
         iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
         iframe.setAttribute('allowfullscreen', '');
@@ -177,7 +178,9 @@ const { experiences } = Astro.props;
     if (elShots) {
       elShots.innerHTML = '';
       const isImg = exp.thumbnail && (exp.thumbnail.startsWith('/') || exp.thumbnail.includes('.'));
-      const ssImgs = isImg ? [{ src: exp.thumbnail, alt: exp.title }] : [];
+      const ssImgs = exp.screenshots?.length
+        ? exp.screenshots
+        : (isImg ? [{ src: exp.thumbnail, alt: exp.title }] : []);
       
       if (ssImgs.length) {
         elShots.classList.remove('hidden');
@@ -257,6 +260,7 @@ const { experiences } = Astro.props;
   function closeExpModal() {
     modal.classList.add('pointer-events-none', 'opacity-0');
     document.body.style.overflow = '';
+    elYt.innerHTML = '';
   }
 
   // Listeners

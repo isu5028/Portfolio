@@ -170,6 +170,22 @@ export const games: Game[] = [
     glowColor: 'rgba(255, 0, 0, 0.4)',
   },
   {
+    id: 'game-kawazu',
+    title: 'ぺろっとたいらげろ！かわずさん',
+    thumbnail: '/games/icon_kawazu.gif',
+    screenshots: [
+      { src: '/games/ss_kawazu_damaged.gif', alt: 'かわずさんのゲームプレイとダメージ時のアニメーション' },
+    ],
+    description: '画面をタップしてカエルのかわずさんの舌を伸ばし、ハエを食べてお腹いっぱいにするゲームです。ハチを避けながらボスハエや複数のハエを狙い、満腹になるまでの時間を競います。\n\n2026年8月のCyberAgent「プロトスプリントリーグ」にて、3人チームで2日間で制作しました。\n\n自身はプレイヤー操作とアニメーションの実装、ゲームフィールの改善、チームの進捗管理を担当しました。また、チームメンバーにGitの使い方や運用を教え、共同開発を支援しました。',
+    genre: 'CyberAgent プロトスプリントリーグ参加作品',
+    tools: ['Unity', 'C#', 'Git'],
+    link: 'https://unityroom.com/games/flyeater_kawazu',
+    linkLabel: 'unityroomで遊ぶ',
+    year: '2026',
+    accentColor: 'orange',
+    glowColor: 'rgba(255, 0, 0, 0.4)',
+  },
+  {
     id: 'game-7',
     title: 'HONEYCOMB CONQUEROR',
     thumbnail: '/games/icon_honey.gif',

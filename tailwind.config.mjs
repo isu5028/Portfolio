@@ -4,8 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        pixel: ['"DotGothic16"', 'monospace'],
-        retro: ['"DotGothic16"', 'sans-serif'],
+        sans: ['"MaruMonica"', 'sans-serif'],
+        pixel: ['"MaruMonica"', 'monospace'],
+        retro: ['"MaruMonica"', 'sans-serif'],
       },
       colors: {
         bg: {
