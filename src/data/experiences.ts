@@ -38,7 +38,7 @@ export const experiences: Experience[] = [
     category: 'Project',
     thumbnail: '/experience/EntrustX.png',
     description: '写真の共有を通じて謎を解くVRChatワールド。Unityシーン・描画・軽量化を担当。',
-    details: 'VRChatの謎解きワールド「Entrust(X)」の制作に参加しました。ワールドで撮影してXに投稿された写真が、別のインスタンスにも共有される仕組みを取り入れ、他のプレイヤーの写真を手がかりに謎を解くゲームです。\n\n自身はUnityシーンの制作・調整、描画周りの実装・調整、軽量化を担当しました。謎解きシステム、現実時間に合わせて空が変化するシステム、UI周りの実装を行いました。また、VRChatの仕様に合わせてDraw Callやバッチ数を削減し、描画負荷の軽減に取り組みました。\n\n写真共有システムの仕組みは、以下の開発メンバーによる解説記事で紹介されています。\n\nhttps://note.com/hadnf/n/n0c41e3211e3d\n\nhttps://www.youtube.com/watch?v=XMwWPlfKnso',
+    details: 'VRChatの謎解きワールド「Entrust(X)」の制作に参加しました。ワールドで撮影してXに投稿された写真が、別のインスタンスにも共有される仕組みを取り入れ、他のプレイヤーの写真を手がかりに謎を解くゲームです。\n\n自身はUnityシーンの制作・調整、描画周りの実装・調整、軽量化を担当しました。謎解きシステム、現実時間に合わせて空が変化するシステム、UI周りの実装を行いました。また、マテリアルの共通化、メッシュの頂点数削減、GPU Instancingの活用により、描画負荷の軽減に取り組みました。\n\n写真共有システムの仕組みは、以下の開発メンバーによる解説記事で紹介されています。\n\nhttps://note.com/hadnf/n/n0c41e3211e3d\n\nhttps://www.youtube.com/watch?v=XMwWPlfKnso',
     tags: ['Unity', 'VRChat', 'Rendering', 'Optimization', 'Team Development'],
     accentColor: 'orange',
   },
