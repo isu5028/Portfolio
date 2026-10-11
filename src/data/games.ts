@@ -125,7 +125,7 @@ export const games: Game[] = [
     tools: ['C++', 'DirectX 11', 'Aseprite'],
     link: 'https://isu502884.itch.io/slime-slash-slayer',
     linkLabel: 'itch.io',
-    gitLink: 'https://github.com/isu5028/DirectX11Practice/tree/3d',
+    gitLink: 'https://github.com/isu5028/SlimeSlashSlayer/tree/main',
     year: '2026',
     accentColor: 'orange',
     glowColor: 'rgba(255, 0, 0, 0.4)',
