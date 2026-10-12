@@ -221,6 +221,23 @@ export const games: Game[] = [
     glowColor: 'rgba(255, 0, 0, 0.4)',
   },
   {
+    id: 'game-28',
+    title: "Humanity's Exodus",
+    thumbnail: '/games/icon_humanity.png',
+    screenshots: [
+      { src: '/games/ss_humanity1.png', alt: "Humanity's Exodus ゲームプレイ画面 1" },
+      { src: '/games/ss_humanity2.png', alt: "Humanity's Exodus ゲームプレイ画面 2" },
+    ],
+    description: 'GMTK Game Jam 2026参加作品。4日間という短期間で、Godot Engineを用いて制作したインクリメンタルゲーム。\n\n限られた制作期間で完成させるため、基盤となるシステムを簡潔に構成できるジャンルを選択。パラメータの調整を重ね、数値が加速度的に増えていく爽快感と、成長を積み重ねるおもしろさを追求した。',
+    genre: 'インクリメンタル',
+    tools: ['Godot'],
+    link: 'https://isu502884.itch.io/humanitys-exodus',
+    linkLabel: 'itch.io',
+    year: '2026',
+    accentColor: 'orange',
+    glowColor: 'rgba(255, 0, 0, 0.4)',
+  },
+  {
     id: 'game-3',
     title: 'Untitled',
     thumbnail: '/games/icon_untitled.gif',
